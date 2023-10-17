@@ -1,0 +1,11 @@
+username,password,isAdmin
+JohnDoe,password123,0
+JaneSmith,securePass,1
+BobJohnson,mySecretPwd,0
+EmilyDavis,12345,1
+MikeWilson,topSecret,0
+SarahBrown,letmein,0
+DavidLee,password456,1
+LindaClark,12345678,0
+JamesMiller,access123,1
+LisaTaylor,adminpass,1

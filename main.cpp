@@ -1,40 +1,44 @@
 #include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <vector>
-
+#include "Authentication.h"
 int main(int argc, char* argv[]) {
-    std::ifstream inputFile("schedule/classes.csv");
-    if (!inputFile.is_open()) {
-        std::cerr << "Failed to open the file." << std::endl;
-        return 1;
+    Authentication auth;
+    auth.readUserDataCSV("userdata.csv");
+    auth.authMenu();
+
+    if (auth.isLogged()) {
+        char option;
+
+        std::cout << "\n----------------Main Menu---------------\n";
+        std::cout << "\t1. Student Information" << std::endl;
+        std::cout << "\t2. UC Information" << std::endl;
+        std::cout << "\t3. Schedules" << std::endl;
+        std::cout << "\t4. Make a new request" << std::endl;
+
+
+        if (auth.getCurrentUser().isAdmin())
+            std::cout << "\t5. Tickets log (Admin-Only)" << std::endl;
+
+
+        std::cout << "\n\t\t\tPress q to exit" << std::endl;
+        std::cout << "----------------------------------------\n\n";
+
+        while (option != 'q') {
+            std::cout << "> ";
+            std::cin >> option;
+            switch (option) {
+                case '1':
+                    option = 'q';
+                    break;
+                case '2':
+                    option = 'q';
+                    break;
+                case 'q':
+                    break;
+                default:
+                    std::cout << "Choose a valid option." << std::endl;
+                    break;
+            }
+        }
     }
-
-    std::vector<std::string> ucCodes;
-    std::vector<std::string> classCodes;
-
-    std::string line;
-    while (std::getline(inputFile, line)) {
-        std::istringstream lineStream(line);
-        std::string ucCode, classCode;
-        std::getline(lineStream, ucCode, ',');
-        std::getline(lineStream, classCode, ',');
-
-        ucCodes.push_back(ucCode);
-        classCodes.push_back(classCode);
-    }
-
-    inputFile.close();
-
-    // Now you have the data in the vectors ucCodes and classCodes.
-    // You can process them as needed.
-
-    for (size_t i = 0; i < ucCodes.size(); ++i) {
-        std::cout << "UcCode: " << ucCodes[i] << " ClassCode: " << classCodes[i] << std::endl;
-    }
-
-    std::cout << argv[0] << std::endl;
-
     return 0;
 }
