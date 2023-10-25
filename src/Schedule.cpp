@@ -5,9 +5,7 @@
 #include <iostream>
 #include "Schedule.h"
 
-Schedule::Schedule() {
-    lessons_.resize(5);
-}
+Schedule::Schedule() = default;
 
 Schedule::Schedule(UcClass& ucClass) {
     lessons_.resize(5);

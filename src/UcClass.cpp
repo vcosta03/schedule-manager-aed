@@ -21,11 +21,3 @@ std::string UcClass::getClassId() const {
     return classId_;
 }
 
-//Schedule UcClass::getSchedule() const {
-//    return schedule_;
-//}
-//
-//Schedule UcClass::getSchedule() const {
-//    return schedule_;
-//}
-
