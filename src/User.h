@@ -10,12 +10,12 @@
 
 class User {
 private:
-    std::string username;
-    std::string password;
+    std::string username_;
+    std::string password_;
     bool isAdmin_;
 
 public:
-    User(std::string user, std::string pass, bool admin);
+    User(std::string username, std::string password, bool admin);
     std::string get_username();
     std::string get_password();
     bool isAdmin();

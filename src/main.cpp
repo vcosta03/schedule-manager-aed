@@ -1,25 +1,29 @@
 #include <iostream>
 #include "Authentication.h"
+#include "Lesson.h"
+#include "Schedule.h"
+
+
 int main(int argc, char* argv[]) {
     Authentication auth;
-    auth.readUserDataCSV("userdata.csv");
+    auth.readUserDataCSV("../csvdata/userdata.csv");
     auth.authMenu();
 
     if (auth.isLogged()) {
         char option;
 
         std::cout << "\n----------------Main Menu---------------\n";
-        std::cout << "\t1. Student Information" << std::endl;
-        std::cout << "\t2. UC Information" << std::endl;
-        std::cout << "\t3. Schedules" << std::endl;
-        std::cout << "\t4. Make a new request" << std::endl;
+        std::cout << "\t1. Student Information" << '\n';
+        std::cout << "\t2. UC Information" << '\n';
+        std::cout << "\t3. Schedules" << '\n';
+        std::cout << "\t4. Make a new request" << '\n';
 
 
         if (auth.getCurrentUser().isAdmin())
-            std::cout << "\t5. Tickets log (Admin-Only)" << std::endl;
+            std::cout << "\t5. Tickets log (Admin-Only)" << '\n';
 
 
-        std::cout << "\n\t\t\tPress q to exit" << std::endl;
+        std::cout << "\n\t\t\tPress q to exit" << s'\n';
         std::cout << "----------------------------------------\n\n";
 
         while (option != 'q') {
@@ -40,5 +44,6 @@ int main(int argc, char* argv[]) {
             }
         }
     }
+
     return 0;
 }

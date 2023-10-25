@@ -3,4 +3,4 @@ project(AEDproject)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(AEDproject main.cpp schedule User.h User.cpp Authentication.h Authentication.cpp)
+add_executable(AEDproject src/main.cpp schedule src/User.h src/User.cpp src/Authentication.h src/Authentication.cpp src/UcClass.cpp src/UcClass.h src/Lesson.h src/Lesson.cpp src/Schedule.h src/Schedule.cpp)

@@ -4,14 +4,14 @@
 
 #include "User.h"
 
-User::User(std::string user, std::string pass, bool admin) : username(user), password(pass), isAdmin_(admin) {}
+User::User(std::string username, std::string password, bool admin) : username_(username), password_(password), isAdmin_(admin) {}
 
 std::string User::get_username() {
-    return username;
+    return username_;
 }
 
 std::string User::get_password() {
-    return password;
+    return password_;
 }
 
 bool User::isAdmin() {
