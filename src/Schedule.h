@@ -8,16 +8,17 @@
 
 #include <list>
 #include <vector>
+#include "UcClass.h"
 #include "Lesson.h"
 
 class Schedule {
 private:
-    UcClass ucClass_;
     std::vector<std::list<Lesson>> lessons_;
 public:
     Schedule();
     Schedule(UcClass& ucClass);
-    void pushLesson(Lesson& lesson);
+//    Schedule(Student& student);
+    void pushLesson(const Lesson& lesson); // quero que automaticamente construa a partir dos vetores de liçao de uc e de student
     void printSchedule();
 };
 

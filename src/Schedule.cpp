@@ -9,10 +9,13 @@ Schedule::Schedule() = default;
 
 Schedule::Schedule(UcClass& ucClass) {
     lessons_.resize(5);
-    ucClass_ = ucClass;
+    for (const Lesson& lesson : ucClass.getLessons()) {
+        pushLesson(lesson);
+    }
+
 }
 
-void Schedule::pushLesson(Lesson &lesson) {
+void Schedule::pushLesson(const Lesson &lesson) {
     lessons_.at(lesson.getWeekday()).push_back(lesson);
 }
 

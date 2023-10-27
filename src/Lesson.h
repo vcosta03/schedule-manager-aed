@@ -6,7 +6,6 @@
 #define AEDPROJECT_LESSON_H
 
 #include <string>
-#include "UcClass.h"
 
 class Lesson {
 private:

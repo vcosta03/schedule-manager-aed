@@ -35,16 +35,19 @@ int Lesson::getEndTime() const {
     int duration = duration_;
     int hours = 0;
 
-    while (duration > 60) {
+    while (duration >= 60) {
         duration -= 60;
         hours++;
     }
 
     int res = startTime_ + (100 * hours);
 
-    if (res%100 + duration > 60){
+    if (res%100 + duration >= 60){
         res += 100 - res%100 + (duration - (60 - res%100)); // Primeiro adiciona minutos suficientes até +1 hora e dps adiciona minutos q sobram 
     }
+
+    else
+        res += duration;
 
     return res;
 }

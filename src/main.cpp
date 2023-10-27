@@ -2,9 +2,11 @@
 #include "Authentication.h"
 #include "Lesson.h"
 #include "Schedule.h"
+#include "UcClass.h"
 
 
 int main(int argc, char* argv[]) {
+/*
     Authentication auth;
     auth.readUserDataCSV("../csvdata/userdata.csv");
     auth.authMenu();
@@ -23,7 +25,7 @@ int main(int argc, char* argv[]) {
             std::cout << "\t5. Tickets log (Admin-Only)" << '\n';
 
 
-        std::cout << "\n\t\t\tPress q to exit" << s'\n';
+        std::cout << "\n\t\t\tPress q to exit" << '\n';
         std::cout << "----------------------------------------\n\n";
 
         while (option != 'q') {
@@ -44,6 +46,17 @@ int main(int argc, char* argv[]) {
             }
         }
     }
+*/
+    std::string t = "T", tp = "TP", pl = "PL", leic = "LEIC", turma = "05";
+    Lesson a(0, 930, 90, t), b(1, 1030, 60, pl), c(4, 1200, 30, tp) ;
 
+    UcClass uc(leic, turma);
+    uc.pushLesson(a);
+    uc.pushLesson(b);
+    uc.pushLesson(c);
+
+    Schedule schedule_uc(uc);
+    schedule_uc.printSchedule();
+    
     return 0;
 }

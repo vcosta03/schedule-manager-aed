@@ -13,11 +13,19 @@ UcClass::UcClass(std::string& ucId, std::string& classId) {
     classId_ = classId;
 }
 
-std::string UcClass::getUcId() const {
+const std::string UcClass::getUcId() const {
     return ucId_;
 }
 
-std::string UcClass::getClassId() const {
+const std::string UcClass::getClassId() const {
     return classId_;
+}
+
+const std::vector<Lesson> UcClass::getLessons() const {
+    return lessons_;
+}
+
+void UcClass::pushLesson(const Lesson& lesson) {
+    lessons_.push_back(lesson);
 }
 
