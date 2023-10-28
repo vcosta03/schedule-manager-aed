@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <iomanip>
 #include "Lesson.h"
 
 
@@ -26,6 +27,7 @@ std::string Lesson::getLessonType() const {
 }
 
 bool Lesson::areOverlapping(Lesson& lesson) {
+    /* Futuramente, podemos analisar por dia, assim eliminamos uma condição  */
     if ((lessonType_ == "T" || lesson.getLessonType() == "T") && (weekday_ != lesson.getWeekday() || weekday_ == lesson.getWeekday() && (startTime_+duration_ < lesson.getStartTime() || startTime_ > lesson.getStartTime()+lesson.getDuration())))
         return false;
     return true;
@@ -50,4 +52,11 @@ int Lesson::getEndTime() const {
         res += duration;
 
     return res;
+}
+
+std::string Lesson::printTime() const {
+    std::string initial = std::to_string(startTime_/100) + ':' + (startTime_%100 < 10 ? '0' + std::to_string(startTime_%100) : std::to_string(startTime_%100));
+    std::string end = std::to_string(getEndTime()/100) + ':' + (getEndTime()%100 < 10 ? '0' + std::to_string(getEndTime()%100) : std::to_string(getEndTime()%100));
+
+    return initial + '-' + end ;
 }

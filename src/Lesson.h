@@ -15,11 +15,12 @@ private:
     std::string lessonType_;
 public:
     Lesson();
-    Lesson(int weekday, int startTime, int duration, std::string& lessonType) : weekday_(weekday), startTime_(startTime), duration_(duration), lessonType_(lessonType) {}
+    Lesson(int weekday, int startTime, int duration, std::string lessonType) : weekday_(weekday), startTime_(startTime), duration_(duration), lessonType_(lessonType) {}
     int getWeekday() const;
     int getStartTime() const;
     int getDuration() const;
     int getEndTime() const;
+    std::string printTime() const;
     std::string getLessonType() const;
     bool areOverlapping(Lesson& lesson);
 };
