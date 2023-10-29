@@ -16,12 +16,17 @@ private:
     std::string classId_;
     std::vector<Lesson> lessons_;
 
+
 public:
+    bool operator==(const UcClass& other) const;
+    bool operator<(const UcClass& other) const;
+
     UcClass();
     UcClass(std::string& ucId, std::string& classId);
-    const std::string getUcId() const;
-    const std::string getClassId() const;
-    const std::vector<Lesson> getLessons() const;
+
+    const std::string &getUcId() const;
+    const std::string &getClassId() const;
+    std::vector<Lesson> getLessons() const;
     void pushLesson(const Lesson& lesson);
 
 

@@ -9,6 +9,14 @@
 
 Lesson::Lesson() = default;
 
+Lesson::Lesson(int weekday, float startTime, float duration, std::string lessonType) {
+    weekday_ = weekday;
+    lessonType_ = lessonType;
+    int hours = (int)startTime;
+    startTime_ = hours * 100 + int(60 * float(startTime-(float)hours));
+    duration_ = int(60 * duration);
+}
+
 
 int Lesson::getWeekday() const {
     return weekday_;
@@ -60,3 +68,4 @@ std::string Lesson::printTime() const {
 
     return initial + '-' + end ;
 }
+

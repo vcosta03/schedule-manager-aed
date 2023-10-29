@@ -117,6 +117,7 @@ void Authentication::readUserDataCSV(const std::string& filename) {
     }
 
     std::string line;
+    std::getline(file, line);
     while (std::getline(file, line)) {
         std::istringstream ss(line);
         std::string username, password, isAdminStr;

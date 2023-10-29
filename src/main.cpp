@@ -3,6 +3,7 @@
 #include "Lesson.h"
 #include "Schedule.h"
 #include "UcClass.h"
+#include "Application.h"
 
 
 int main(int argc, char* argv[]) {
@@ -12,7 +13,13 @@ int main(int argc, char* argv[]) {
     auth.authMenu();
 
     if (auth.isLogged()) {
+    */
+        Application app;
+        app.readFiles("../csvdata/classes_per_uc.csv", "../csvdata/classes.csv");
+
+
         char option;
+    while (option != 'q') {
 
         std::cout << "\n----------------Main Menu---------------\n";
         std::cout << "\t1. Student Information" << '\n';
@@ -21,60 +28,57 @@ int main(int argc, char* argv[]) {
         std::cout << "\t4. Make a new request" << '\n';
 
 
-        if (auth.getCurrentUser().isAdmin())
-            std::cout << "\t5. Tickets log (Admin-Only)" << '\n';
+//        if (auth.getCurrentUser().isAdmin())
+//            std::cout << "\t5. Tickets log (Admin-Only)" << '\n';
 
 
         std::cout << "\n\t\t\tPress q to exit" << '\n';
         std::cout << "----------------------------------------\n\n";
 
-        while (option != 'q') {
-            std::cout << "> ";
-            std::cin >> option;
-            switch (option) {
-                case '1':
-                    option = 'q';
-                    break;
-                case '2':
-                    option = 'q';
-                    break;
-                case 'q':
-                    break;
-                default:
-                    std::cout << "Choose a valid option." << std::endl;
-                    break;
-            }
+
+        std::cout << "> ";
+        std::cin >> option;
+        switch (option) {
+            case '1':
+                option = 'q';
+                break;
+            case '2':
+                option = 'q';
+                break;
+            case '3':
+                app.schedules();
+                break;
+            case 'q':
+                break;
+            default:
+                std::cout << "Choose a valid option." << std::endl;
+                break;
         }
     }
-*/
-//    std::string t = "T", tp = "TP", pl = "PL", leic = "LEIC", turma = "05";
-//    Lesson a(0, 930, 90, t), b(1, 1030, 60, pl), c(4, 1200, 30, tp) ;
+
+
+
+//    Application app;
+//    app.readFiles("../csvdata/classes_per_uc.csv", "../csvdata/classes.csv");
 //
+//    for (auto s : app.getSchedules()){
+//        s.printSchedule(0);
+//    }
 
 
-    std::string leic = "LEIC", turma = "05";
-    UcClass uc(leic, turma);
 
-    Lesson lesson1(0, 800, 60, "T");
-    Lesson lesson2(1, 900, 90, "TP");
-    Lesson lesson3(2, 1000, 120, "PL");
-    Lesson lesson4(3, 1100, 60, "T");
-    Lesson lesson5(4, 1200, 90, "TP");
-    Lesson lesson6(0, 1300, 120, "PL");
-    Lesson lesson7(1, 1400, 60, "T");
-    Lesson lesson8(2, 1500, 90, "TP");
-    Lesson lesson9(3, 1600, 120, "PL");
-    Lesson lesson10(4, 1700, 60, "T");
 
-    // Create a vector to store the Lesson objects
-    std::vector<Lesson> lessons = {lesson1, lesson2, lesson3, lesson4, lesson5, lesson6, lesson7, lesson8, lesson9, lesson10};
+//    auto uc = app.getUcClasses();
+//
+//    std::string a="L.EIC001", b="1LEIC01";
+//    UcClass searchKey(a, b);
+//
+//    for (UcClass& ucC : uc) {
+//        if (ucC.getUcId().compare(a) == 0) {
+//            std::cout << "encontrei" << '\n';
+//        }
+//    }
 
-    for (const auto& lesson :  lessons) {
-        uc.pushLesson(lesson);
-    }
-
-    Schedule schedule_uc(uc);
-    schedule_uc.printSchedule(0);
 
     return 0;
 }

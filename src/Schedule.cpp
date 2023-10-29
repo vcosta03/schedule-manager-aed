@@ -9,8 +9,9 @@
 
 Schedule::Schedule() = default;
 
-Schedule::Schedule(UcClass& ucClass) {
+Schedule::Schedule(const UcClass& ucClass) {
     lessons_.resize(5);
+
     for (const Lesson& lesson : ucClass.getLessons()) {
         pushLesson(lesson);
     }
@@ -22,7 +23,7 @@ void Schedule::pushLesson(const Lesson &lesson) {
     lessons_.at(lesson.getWeekday()).push_back(lesson);
 }
 
-void Schedule::printSchedule(const int type) {
+void Schedule::printSchedule(const int type) const{
     // "---------------|" string tem tamanho 16, std::setw(16) e dps escrever
 /*
     std::cout << "UcClass/Student Schedule\n\n";
@@ -66,6 +67,7 @@ void Schedule::printSchedule(const int type) {
 // Printa UCCLASS horizontalmente
 
     if (type == 0) {
+        std::cout << "\n----------------------------------------\n\n";
         std::cout << "UC: " << ucClasses_.at(0).getUcId()
                 << " | Class: " << ucClasses_.at(0).getClassId() << "\n\n";
 
@@ -77,6 +79,8 @@ void Schedule::printSchedule(const int type) {
 
             std::cout << '\n';
         }
+
+        std::cout << '\n';
     }
 
     if (type == 1) {
@@ -86,15 +90,8 @@ void Schedule::printSchedule(const int type) {
 
 }
 
-void Schedule::yieldsTime(int &hour, int &min) const {
-    min += 30;
-    if (min == 60) {
-        hour++;
-        min = 0;
-    }
-}
 
-std::string Schedule::dayWeek(int day) {
+std::string Schedule::dayWeek(int day) const{
     switch (day) {
         case 0:
             return "Monday";
