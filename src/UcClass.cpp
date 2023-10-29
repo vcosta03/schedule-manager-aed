@@ -22,14 +22,6 @@ void UcClass::pushLesson(const Lesson& lesson) {
     lessons_.push_back(lesson);
 }
 
-bool UcClass::operator<(const UcClass &other) const {
-    if (ucId_ != other.getUcId()) {
-        return ucId_ < other.getUcId();
-    }
-    return classId_ < other.getClassId();
-
-}
-
 bool UcClass::operator==(const UcClass &other) const {
     return ucId_ == other.getUcId() && classId_ == other.getClassId();
 }

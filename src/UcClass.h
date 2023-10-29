@@ -18,8 +18,6 @@ private:
 
 
 public:
-    bool operator==(const UcClass& other) const;
-    bool operator<(const UcClass& other) const;
 
     UcClass();
     UcClass(std::string& ucId, std::string& classId);
@@ -27,8 +25,10 @@ public:
     const std::string &getUcId() const;
     const std::string &getClassId() const;
     std::vector<Lesson> getLessons() const;
+
     void pushLesson(const Lesson& lesson);
 
+    bool operator==(const UcClass& other) const;
 
 };
 

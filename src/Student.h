@@ -8,14 +8,22 @@
 #include <iostream>
 #include <list>
 #include "UcClass.h"
-#include "Schedule.h"
 
 class Student {
 private:
     std::string name_, code_;
     std::list<UcClass> ucClasses_;
+
 public:
     Student();
+    Student(std::string& code, std::string& name);
+    const std::string &getStudentName() const;
+    const std::string &getStudentCode() const;
+    const std::list<UcClass> &getUcClasses() const;
+
+    void pushUcClass(const UcClass uc);
+
+    bool operator==(const Student& other) const;
 };
 
 
