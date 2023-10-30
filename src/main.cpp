@@ -8,11 +8,11 @@
 
 int main(int argc, char* argv[]) {
 
-    Authentication auth;
-    auth.readUserDataCSV("../csvdata/userdata.csv");
-    auth.authMenu();
+////    Authentication auth;
+//    auth.readUserDataCSV("../csvdata/userdata.csv");
+//    auth.authMenu();
 
-    if (auth.isLogged()) {
+//    if (auth.isLogged()) {
 
         Application app;
         app.readFiles("../csvdata/classes_per_uc.csv", "../csvdata/classes.csv", "../csvdata/students_classes.csv");
@@ -28,8 +28,8 @@ int main(int argc, char* argv[]) {
             std::cout << "\t4. Make a new request" << '\n';
 
 
-            if (auth.getCurrentUser().isAdmin())
-                std::cout << "\t5. Tickets log (Admin-Only)" << '\n';
+//            if (auth.getCurrentUser().isAdmin())
+//                std::cout << "\t5. Tickets log (Admin-Only)" << '\n';
 
 
             std::cout << "\n\t\t\tPress q to exit" << '\n';
@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
                     std::cout << "Choose a valid option." << std::endl;
                     break;
             }
-        }
+//        }
     }
 
     return 0;

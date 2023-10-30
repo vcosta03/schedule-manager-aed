@@ -6,7 +6,6 @@
 #define AEDPROJECT_APPLICATION_H
 
 #include <iostream>
-#include <set>
 #include <map>
 #include "UcClass.h"
 #include "Schedule.h"

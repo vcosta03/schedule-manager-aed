@@ -172,7 +172,6 @@ void Application::schedulesPerUc() const {
     std::cin >> ucCode;
     std::cout << "Enter the Class code: ";
     std::cin >> classCode;
-
     UcClass currUcClass(ucCode, classCode);
 
 
@@ -187,7 +186,7 @@ void Application::schedulesPerUc() const {
     }
 
     else
-        std::cout << "Invalid UC/Class code combination.";
+        std::cout << "Invalid UC/Class code combination.\n";
 }
 
 void Application::schedulesPerStudent() const {
@@ -244,6 +243,15 @@ bool Application::ucClassExists(UcClass &ucClass) const {
 
 const std::list<Student> &Application::getStudents() const {
     return students_;
+}
+
+void Application::students() const {
+    std::cout << "\n--------------Student Menu--------------\n\n"; //40 chars
+    std::cout << "\t1. List students\n";
+    std::cout << "\t2. Find a student\n";
+    std::cout << "\n\t  Press q to exit current menu" << '\n';
+    std::cout << "----------------------------------------\n\n";
+
 }
 
 

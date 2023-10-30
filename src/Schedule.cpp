@@ -10,13 +10,13 @@
 Schedule::Schedule() = default;
 
 Schedule::Schedule(const UcClass& ucClass) {
-    schedule_.resize(5);
+    lessons_.resize(5);
 
     ucClasses_.push_back(ucClass);
 }
 
 Schedule::Schedule(const Student &student) {
-    schedule_.resize(5);
+    lessons_.resize(5);
 
     for (const UcClass& uc : student.getUcClasses()) {
         ucClasses_.push_back(uc);
@@ -32,7 +32,7 @@ void Schedule::printSchedule(const int type){
 
 
         for (const Lesson& lesson : currUcClass.getLessons()) {
-            pushLesson(lesson);
+            pushLesson(lesson, 'A');
         }
 
         std::cout << "\n----------------------------------------\n\n";
@@ -41,8 +41,10 @@ void Schedule::printSchedule(const int type){
 
         for (int i = 0; i < 5; i++) {
             std::cout << '|' << std::setw(10) << dayWeek(i) << " |";
-            for (const auto& lessonInfo : schedule_[i]) {
-                std::cout << ' ' << lessonInfo << " |";
+
+            for (const auto& pair : lessons_[i]) {
+                std::string info = pair.second.getLessonType() + ' ' + pair.second.printTime();
+                std::cout << ' ' << info << " |";
             }
             std::cout << '\n';
         }
@@ -62,7 +64,7 @@ void Schedule::printSchedule(const int type){
         for (const UcClass& uc : ucClasses_) {
 
             for (const Lesson& lesson : uc.getLessons()) {
-                pushLessonInfo(lesson, index);
+                pushLesson(lesson, index);
             }
 
             std::cout << '\t' << index << ": " << uc.getUcId() << " - " << uc.getClassId() << '\n';
@@ -75,9 +77,12 @@ void Schedule::printSchedule(const int type){
         for (int i = 0; i < 5; i++) {
             std::cout << '|' << std::setw(10) << dayWeek(i) << " |";
 
-            for (const auto& lessonInfo : schedule_[i]) {
-                std::cout << ' ' << lessonInfo << " |";
+            for (const auto& pair : lessons_[i]) {
+                std::string info = std::string(1, pair.first) + ' ' + pair.second.getLessonType() + ' ' + pair.second.printTime();
+                std::cout << ' ' << info << " |";
             }
+
+
 
             std::cout << '\n';
         }
@@ -107,15 +112,18 @@ std::string Schedule::dayWeek(int day) const{
 }
 
 
-void Schedule::pushLesson(const Lesson &lesson) {
-    std::string info = lesson.getLessonType() + ' ' +lesson.printTime();
-    schedule_.at(lesson.getWeekday()).push_back(info);
-}
+void Schedule::pushLesson(const Lesson &lesson, char index) {
+    int weekday = lesson.getWeekday();
+    auto it = lessons_[weekday].begin();
 
-void Schedule::pushLessonInfo(const Lesson &lesson, char index) {
-    std::string i(1, index);
-    std::string info = i + ' ' + lesson.getLessonType() + ' ' +lesson.printTime();
-    schedule_.at(lesson.getWeekday()).push_back(info);
+    while (it != lessons_[weekday].end()) {
+        if (lesson.getStartTime() < it->second.getStartTime()) {
+            break;
+        }
+        it++;
+    }
+
+    lessons_.at(lesson.getWeekday()).insert(it,std::pair<char, Lesson>(index, lesson) );
 }
 
 
