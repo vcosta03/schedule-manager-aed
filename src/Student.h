@@ -22,6 +22,7 @@ public:
     const std::list<UcClass> &getUcClasses() const;
 
     void pushUcClass(const UcClass uc);
+    int getCurricularYear() const;
 
     bool operator==(const Student& other) const;
 };

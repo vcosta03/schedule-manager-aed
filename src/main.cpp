@@ -14,6 +14,16 @@ int main(int argc, char* argv[]) {
 
 //    if (auth.isLogged()) {
 
+//    std::string userInput;
+//    std::cout << "Please enter a line of text (press Enter to submit): ";
+//    std::getline(std::cin, userInput);
+//
+//    if (userInput.empty()) {
+//        std::cout << "You didn't enter any text." << std::endl;
+//    } else {
+//        std::cout << "You entered: " << userInput << std::endl;
+//    }
+
         Application app;
         app.readFiles("../csvdata/classes_per_uc.csv", "../csvdata/classes.csv", "../csvdata/students_classes.csv");
 
@@ -21,7 +31,7 @@ int main(int argc, char* argv[]) {
         char option;
         while (option != 'q') {
 
-            std::cout << "\n----------------Main Menu---------------\n";
+            std::cout << "\n---------------Main  Menu---------------\n";
             std::cout << "\t1. Student Information" << '\n';
             std::cout << "\t2. UC Information" << '\n';
             std::cout << "\t3. Schedules" << '\n';
@@ -40,7 +50,7 @@ int main(int argc, char* argv[]) {
             std::cin >> option;
             switch (option) {
                 case '1':
-                    option = 'q';
+                    app.students();
                     break;
                 case '2':
                     option = 'q';

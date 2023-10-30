@@ -7,6 +7,7 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include <iomanip>
 
 Application::Application() = default;
 
@@ -251,6 +252,82 @@ void Application::students() const {
     std::cout << "\t2. Find a student\n";
     std::cout << "\n\t  Press q to exit current menu" << '\n';
     std::cout << "----------------------------------------\n\n";
+
+    char option;
+
+    std::cout << "> ";
+    std::cin >> option;
+
+    switch (option) {
+        case '1':
+//            studentsListing();
+            break;
+        case '2': {
+            studentsSearch();
+            break;
+        }
+        case 'q':
+            break;
+        default:
+            std::cout << "Choose a valid option!\n";
+            break;
+
+    }
+
+}
+
+void Application::studentsListing() const {
+
+}
+
+void Application::studentsSearch() const {
+    std::string input;
+    bool studentFound;
+
+    Student currStudent;
+
+    std::cout << "\n----------------------------------------\n\n";
+    std::cout << "Enter the Student's name or code: ";
+    std::cin >> input;
+
+    if (input.at(0) >= '0' && input.at(0) <= '9') {
+        for (const Student& student : students_) {
+            if (student.getStudentCode() == input) {
+                studentFound = true;
+                currStudent = student;
+                break;
+            }
+        }
+    }
+
+    else {
+        for (const Student& student : students_) {
+            if (student.getStudentName() == input) {
+                studentFound = true;
+                currStudent = student;
+                break;
+            }
+        }
+
+    }
+
+    if (!studentFound){
+        std::cout << "Student not found/doesn't exist.\n";
+        students();
+    }
+
+    else {
+        std::cout << "\n----------------------------------------\n";
+        std::cout << std::setw(18) << currStudent.getStudentName() << "'s Profile\n\n";
+        std::cout << "Name: " << std::setw(34) << currStudent.getStudentName() << '\n';
+        std::cout << "Code: " << std::setw(34) << currStudent.getStudentCode() << '\n';
+        std::cout << "Year: " << std::setw(34) << currStudent.getCurricularYear() << '\n';
+        std::cout << "UCs Enrolled:\n";
+
+        for (const UcClass& uc : currStudent.getUcClasses()) {
+            std::cout << std::setw(9) <<"UC: " << uc.getUcId() << " | " << "Class: " << uc.getClassId() <<'\n';
+        }
+    }
 
 }
 

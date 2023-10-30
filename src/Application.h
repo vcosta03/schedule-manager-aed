@@ -18,17 +18,23 @@ private:
 
 public:
     Application();
+
     const std::vector<UcClass> &getUcClasses() const;
     const std::list<Student> &getStudents() const;
 
-    void students() const;
-    void schedules() const;
     void readFiles(std::string file1, std::string file2, std::string file3);
-    int dayStrToInt(const std::string& day);
+
+    void schedules() const;
     void schedulesPerUc() const;
     void schedulesPerStudent() const;
-    bool ucClassExists(UcClass& ucClass) const;
 
+    void students() const;
+    void studentsListing() const;
+    void studentsSearch() const;
+
+
+    int dayStrToInt(const std::string& day);
+    bool ucClassExists(UcClass& ucClass) const;
 
 };
 
