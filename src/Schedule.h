@@ -16,6 +16,7 @@ class Schedule {
 private:
     std::vector<UcClass> ucClasses_;
     std::vector<std::vector<std::pair<char , Lesson>>> lessons_;
+
 public:
     Schedule();
     Schedule(const UcClass& ucClass);

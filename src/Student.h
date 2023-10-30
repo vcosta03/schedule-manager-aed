@@ -17,6 +17,7 @@ private:
 public:
     Student();
     Student(std::string& code, std::string& name);
+
     const std::string &getStudentName() const;
     const std::string &getStudentCode() const;
     const std::list<UcClass> &getUcClasses() const;

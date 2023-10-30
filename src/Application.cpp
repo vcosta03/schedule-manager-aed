@@ -260,7 +260,7 @@ void Application::students() const {
 
     switch (option) {
         case '1':
-//            studentsListing();
+            studentsListing();
             break;
         case '2': {
             studentsSearch();
@@ -277,8 +277,73 @@ void Application::students() const {
 }
 
 void Application::studentsListing() const {
+    char optionMenu, optionAscDesc;
+    std::string optionSize;
+    int size;
+    bool ascending;
+
+    std::cout << "\n-------------Student Listing------------\n\n"; //40 chars
+    std::cout << "List by:\n";
+    std::cout << "\t1. Name\n";
+    std::cout << "\t2. ID\n";
+    std::cout << "\t3. Academic Year\n";
+    std::cout << "\t4. Number of UC's enrolled\n";
+    std::cout << "\n\t  Press q to exit current menu" << '\n';
+    std::cout << "----------------------------------------\n\n";
+
+    std::cout << "> ";
+    std::cin >> optionMenu;
+
+    if (optionMenu >= '1' && optionMenu <= '4') {
+
+        std::cout << "\n----------------------------------------\n\n";
+        std::cout << "Sort in ascending (1) or descending (2) order?\n" << "> ";
+        std::cin >> optionAscDesc;
+
+        switch (optionAscDesc) {
+            case '1':
+                ascending = true;
+                break;
+            case '2':
+                ascending = false;
+                break;
+        }
+
+        std::cout << "\nHow many students? (Press ENTER for every student)\n" << "> ";
+        std::getline(std::cin, optionSize);
+
+
+
+
+    }
+
+    else if (optionMenu == 'q') {
+        return;
+    }
+
+    else {
+        std::cout << "Choose a valid option!\n";
+        studentsListing();
+    }
+
+    switch (optionMenu) {
+        case '1':
+            break;
+        case '2':
+            break;
+        case '3':
+            break;
+        case '4':
+            break;
+        case 'q':
+            break;
+        default:
+            std::cout << "Choose a valid option!\n";
+            break;
+    }
 
 }
+
 
 void Application::studentsSearch() const {
     std::string input;
@@ -330,6 +395,24 @@ void Application::studentsSearch() const {
     }
 
 }
+
+
+bool Application::compareStudentsByNameAscending(const Student& student1, const Student& student2) {
+    return student1.getStudentName() < student2.getStudentName();
+}
+
+bool Application::compareStudentsByNameDescending(const Student &student1, const Student &student2) {
+    return student1.getStudentName() > student2.getStudentName();
+}
+
+void Application::studentsSort(std::list<Student> &students, bool ascending) {
+    if (ascending)
+        students_.sort(compareStudentsByNameAscending);
+    else
+        students_.sort(compareStudentsByNameDescending);
+}
+
+
 
 
 

@@ -11,7 +11,6 @@ Schedule::Schedule() = default;
 
 Schedule::Schedule(const UcClass& ucClass) {
     lessons_.resize(5);
-
     ucClasses_.push_back(ucClass);
 }
 
@@ -25,7 +24,7 @@ Schedule::Schedule(const Student &student) {
 
 
 void Schedule::printSchedule(const int type){
-// Printa UCCLASS horizontalmente
+// PRINTA UCCLASS
 
     if (type == 0) {
         UcClass currUcClass = ucClasses_.at(0);
@@ -81,8 +80,6 @@ void Schedule::printSchedule(const int type){
                 std::string info = std::string(1, pair.first) + ' ' + pair.second.getLessonType() + ' ' + pair.second.printTime();
                 std::cout << ' ' << info << " |";
             }
-
-
 
             std::cout << '\n';
         }

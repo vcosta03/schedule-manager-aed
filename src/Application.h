@@ -31,6 +31,9 @@ public:
     void students() const;
     void studentsListing() const;
     void studentsSearch() const;
+    static bool compareStudentsByNameAscending(const Student& student1, const Student& student2);
+    static bool compareStudentsByNameDescending(const Student& student1, const Student& student2);
+    void studentsSort(std::list<Student>& students, bool ascending);
 
 
     int dayStrToInt(const std::string& day);
