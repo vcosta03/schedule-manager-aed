@@ -54,3 +54,7 @@ int Student::getCurricularYear() const {
 
     return maxYear+1;
 }
+
+int Student::getUcsEnrolled() const {
+    return ucClasses_.size();
+}

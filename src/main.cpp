@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 #include "Authentication.h"
 #include "Lesson.h"
 #include "Schedule.h"
@@ -7,6 +8,15 @@
 
 
 int main(int argc, char* argv[]) {
+    /*
+     * bug: nao da pa dar cin num char, se input > 1 char, so le o primeiro logo pode ler mal; mudar todos pa string
+     *
+     *
+     */
+
+
+
+
 
 ////    Authentication auth;
 //    auth.readUserDataCSV("../csvdata/userdata.csv");
@@ -28,8 +38,8 @@ int main(int argc, char* argv[]) {
         app.readFiles("../csvdata/classes_per_uc.csv", "../csvdata/classes.csv", "../csvdata/students_classes.csv");
 
 
-        char option;
-        while (option != 'q') {
+        std::string option;
+        while (option != "q") {
 
             std::cout << "\n---------------Main  Menu---------------\n";
             std::cout << "\t1. Student Information" << '\n';
@@ -48,20 +58,39 @@ int main(int argc, char* argv[]) {
 
             std::cout << "> ";
             std::cin >> option;
-            switch (option) {
+
+            if (option.length() != 1) {
+                std::cout << "Choose a valid option." << std::endl;
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                continue;
+            }
+
+            switch (option[0]) {
                 case '1':
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     app.students();
                     break;
                 case '2':
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     option = 'q';
                     break;
                 case '3':
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     app.schedules();
                     break;
                 case 'q':
                     break;
+
                 default:
                     std::cout << "Choose a valid option." << std::endl;
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
                     break;
             }
 //        }

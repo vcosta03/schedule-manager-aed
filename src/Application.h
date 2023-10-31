@@ -28,12 +28,17 @@ public:
     void schedulesPerUc() const;
     void schedulesPerStudent() const;
 
-    void students() const;
-    void studentsListing() const;
-    void studentsSearch() const;
+    void students();
+    void studentsListing();
+    void studentsSearch();
+    void studentsSort(bool ascending, bool (*comparator)(const Student& a, const Student& b));
+    bool getOrderAndSize(bool& order, int& size) const;
+
     static bool compareStudentsByNameAscending(const Student& student1, const Student& student2);
-    static bool compareStudentsByNameDescending(const Student& student1, const Student& student2);
-    void studentsSort(std::list<Student>& students, bool ascending);
+    static bool compareStudentsByIdAscending(const Student& student1, const Student& student2);
+    static bool compareStudentsByYearAscending(const Student& student1, const Student& student2);
+    static bool compareStudentsByUcsAscending(const Student& student1, const Student& student2);
+
 
 
     int dayStrToInt(const std::string& day);

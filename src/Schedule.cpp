@@ -56,7 +56,6 @@ void Schedule::printSchedule(const int type){
     if (type == 1) {
         char index = 'A';
 
-        std::cout << "\n----------------------------------------\n\n";
 
         std::cout << "Index for Uc/Classes pair:\n";
 
@@ -102,7 +101,7 @@ std::string Schedule::dayWeek(int day) const{
         case 3:
             return "Thursday";
         case 4:
-            return "Friday;";
+            return "Friday";
         default:
             return "Invalid";
     }

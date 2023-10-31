@@ -8,6 +8,7 @@
 #include <sstream>
 #include <algorithm>
 #include <iomanip>
+#include <limits>
 
 Application::Application() = default;
 
@@ -159,6 +160,8 @@ void Application::schedules() const {
             break;
         default:
             std::cout << "Choose a valid option!\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
 
     }
@@ -168,9 +171,16 @@ void Application::schedules() const {
 void Application::schedulesPerUc() const {
     std::string ucCode, classCode;
 
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
     std::cout << "\n----------------------------------------\n\n";
     std::cout << "Enter the UC code: ";
     std::cin >> ucCode;
+
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
     std::cout << "Enter the Class code: ";
     std::cin >> classCode;
     UcClass currUcClass(ucCode, classCode);
@@ -179,8 +189,8 @@ void Application::schedulesPerUc() const {
     if (ucClassExists(currUcClass)) {
         auto a = currUcClass.getLessons();
 
-        if (a.empty())
-            std::cout << "empty" << '\n';
+//        if (a.empty())
+//            std::cout << "empty" << '\n';
 
         Schedule currSchedule(currUcClass);
         currSchedule.printSchedule(0);
@@ -194,9 +204,18 @@ void Application::schedulesPerStudent() const {
     bool studentFound = false;
     std::string input;
 
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
     std::cout << "\n----------------------------------------\n\n";
     std::cout << "Enter the Student's name or code: ";
-    std::cin >> input;
+    std::getline(std::cin,input);
+
+    if (input.empty()) {
+        std::cout << "Invalid input.\n";
+        schedules();
+        return;
+    }
 
     if (input.at(0) >= '0' && input.at(0) <= '9') {
         for (const Student& student : students_) {
@@ -215,6 +234,8 @@ void Application::schedulesPerStudent() const {
             if (student.getStudentName() == input) {
                 studentFound = true;
 
+                std::cout << "\n----------------------------------------\n";
+                std::cout << std::setw(20) << student.getStudentName() << "'s Schedule\n\n";
                 Schedule currSchedule(student);
                 currSchedule.printSchedule(1);
                 break;
@@ -225,6 +246,8 @@ void Application::schedulesPerStudent() const {
 
     if (!studentFound){
         std::cout << "Student not found/doesn't exist.\n";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         schedules();
     }
 }
@@ -246,7 +269,7 @@ const std::list<Student> &Application::getStudents() const {
     return students_;
 }
 
-void Application::students() const {
+void Application::students() {
     std::cout << "\n--------------Student Menu--------------\n\n"; //40 chars
     std::cout << "\t1. List students\n";
     std::cout << "\t2. Find a student\n";
@@ -270,17 +293,20 @@ void Application::students() const {
             break;
         default:
             std::cout << "Choose a valid option!\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
 
     }
 
 }
 
-void Application::studentsListing() const {
-    char optionMenu, optionAscDesc;
-    std::string optionSize;
+void Application::studentsListing() {
+    std::string optionMenu;
     int size;
     bool ascending;
+
+
 
     std::cout << "\n-------------Student Listing------------\n\n"; //40 chars
     std::cout << "List by:\n";
@@ -294,66 +320,83 @@ void Application::studentsListing() const {
     std::cout << "> ";
     std::cin >> optionMenu;
 
-    if (optionMenu >= '1' && optionMenu <= '4') {
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-        std::cout << "\n----------------------------------------\n\n";
-        std::cout << "Sort in ascending (1) or descending (2) order?\n" << "> ";
-        std::cin >> optionAscDesc;
-
-        switch (optionAscDesc) {
-            case '1':
-                ascending = true;
-                break;
-            case '2':
-                ascending = false;
-                break;
-        }
-
-        std::cout << "\nHow many students? (Press ENTER for every student)\n" << "> ";
-        std::getline(std::cin, optionSize);
-
-
-
-
-    }
-
-    else if (optionMenu == 'q') {
+    if (optionMenu.length() != 1 ) {
+        std::cout << "Choose a valid option!\n";
+        studentsListing();
         return;
     }
 
-    else {
-        std::cout << "Choose a valid option!\n";
-        studentsListing();
+    if (optionMenu[0] == 'q') {
+        return;
     }
 
-    switch (optionMenu) {
-        case '1':
-            break;
-        case '2':
-            break;
-        case '3':
-            break;
-        case '4':
-            break;
-        case 'q':
-            break;
-        default:
-            std::cout << "Choose a valid option!\n";
-            break;
+    if (getOrderAndSize(ascending, size)) {
+        switch (optionMenu[0]) {
+            case '1':
+                studentsSort(ascending, compareStudentsByNameAscending);
+                break;
+            case '2':
+                studentsSort(ascending, compareStudentsByIdAscending);
+                break;
+            case'3':
+                studentsSort(ascending, compareStudentsByYearAscending);
+                break;
+            case '4':
+                studentsSort(ascending, compareStudentsByUcsAscending);
+                break;
+            default:
+                std::cout << "Choose a valid menu option!\n";
+                studentsListing();
+                return;
+        }
+        std::cout << "\n----------------------------------------\n";
+        std::cout << std::setw(11) << "ID |" << std::setw(20) << "Name |" << std::setw(7) << "Year |" << std::setw(7) << "UC's |" << '\n';
+
+        size_t limit = (size == -1 ? students_.size()-1 : size), i = 0;
+        auto it = students_.begin();
+
+        while (i < limit && it != students_.end()){
+            std::cout << std::setw(9) << it->getStudentCode() << " | "
+                    << std::setw(17) << it->getStudentName() << " | "
+                    << std::setw(4) << it->getCurricularYear() << " | "
+                    << std::setw(4) << it->getUcsEnrolled() << " |" << '\n';
+
+            it++;
+            i++;
+        }
+
     }
+
+    else {
+        studentsListing();
+        return;
+    }
+
 
 }
 
 
-void Application::studentsSearch() const {
+void Application::studentsSearch() {
     std::string input;
     bool studentFound;
 
     Student currStudent;
 
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
     std::cout << "\n----------------------------------------\n\n";
     std::cout << "Enter the Student's name or code: ";
-    std::cin >> input;
+    std::getline(std::cin, input);
+
+    if (input.empty()) {
+        std::cout << "Invalid input.\n";
+        students();
+        return;
+    }
 
     if (input.at(0) >= '0' && input.at(0) <= '9') {
         for (const Student& student : students_) {
@@ -378,12 +421,17 @@ void Application::studentsSearch() const {
 
     if (!studentFound){
         std::cout << "Student not found/doesn't exist.\n";
+
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
         students();
+        return;
     }
 
     else {
         std::cout << "\n----------------------------------------\n";
-        std::cout << std::setw(18) << currStudent.getStudentName() << "'s Profile\n\n";
+        std::cout << std::setw(20) << currStudent.getStudentName() << "'s Profile\n\n";
         std::cout << "Name: " << std::setw(34) << currStudent.getStudentName() << '\n';
         std::cout << "Code: " << std::setw(34) << currStudent.getStudentCode() << '\n';
         std::cout << "Year: " << std::setw(34) << currStudent.getCurricularYear() << '\n';
@@ -401,15 +449,77 @@ bool Application::compareStudentsByNameAscending(const Student& student1, const 
     return student1.getStudentName() < student2.getStudentName();
 }
 
-bool Application::compareStudentsByNameDescending(const Student &student1, const Student &student2) {
-    return student1.getStudentName() > student2.getStudentName();
+bool Application::compareStudentsByIdAscending(const Student& student1, const Student& student2) {
+    return student1.getStudentCode() < student2.getStudentCode();
 }
 
-void Application::studentsSort(std::list<Student> &students, bool ascending) {
+bool Application::compareStudentsByYearAscending(const Student& student1, const Student& student2) {
+    return student1.getCurricularYear() < student2.getCurricularYear();
+}
+
+bool Application::compareStudentsByUcsAscending(const Student& student1, const Student& student2) {
+    return student1.getUcsEnrolled() < student2.getUcsEnrolled();
+}
+
+
+void Application::studentsSort(bool ascending, bool (*comparator)(const Student& a, const Student& b)) {
     if (ascending)
-        students_.sort(compareStudentsByNameAscending);
-    else
-        students_.sort(compareStudentsByNameDescending);
+        students_.sort(comparator);
+    else {
+        students_.sort(comparator);
+        students_.reverse();
+    }
+}
+
+bool Application::getOrderAndSize(bool& ascending, int& size) const {
+    short optionOrder;
+    std::string optionSize;
+
+    std::cout << "\n----------------------------------------\n\n";
+    std::cout << "Sort in ascending (1) or descending (2)\norder?\n" << "> ";
+    std::cin >> optionOrder;
+
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    if (optionOrder != 1 && optionOrder != 2) {
+        std::cout << "Choose a valid option!\n";
+        return false;
+    }
+
+    else if (optionOrder == 1) {
+        ascending = true;
+    }
+
+    else if (optionOrder == 2) {
+        ascending = false;
+    }
+
+    std::cout << "\nHow many students? (Press ENTER for every student)\n" << "> ";
+    std::getline(std::cin, optionSize);
+
+    if (!optionSize.empty()) {
+        try {
+            size = std::stoi(optionSize);
+
+            if (size <= 0 || size > 100) {
+                std::cout << "The number of students to display must\nbe between 1 to 100, press ENTER for\nevery student.\n";
+                return false;
+            }
+
+            return true;
+        }
+        catch (const std::invalid_argument& e) {
+            std::cout << "Choose a valid option!\n";
+            return false;
+        }
+    }
+
+    else {
+        size = -1;
+        return true;
+    }
+
 }
 
 

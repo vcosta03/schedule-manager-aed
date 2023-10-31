@@ -24,6 +24,7 @@ public:
 
     void pushUcClass(const UcClass uc);
     int getCurricularYear() const;
+    int getUcsEnrolled() const;
 
     bool operator==(const Student& other) const;
 };
