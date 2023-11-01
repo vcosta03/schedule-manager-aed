@@ -16,16 +16,15 @@
 class Application {
 private:
     std::vector<UcClass> ucClasses_;
-    std::list<Student> students_;
-    std::set<Student> studentsSet_;
+    std::set<Student> students_;
 
 public:
     Application();
 
     const std::vector<UcClass> &getUcClasses() const;
-    const std::list<Student> &getStudents() const;
+    const std::set<Student> &getStudents() const;
 
-    void readFiles(std::string file1, std::string file2, std::string file3);
+    void readFiles(const std::string& file1, const std::string& file2, const std::string& file3);
 
     void schedules() const;
     void schedulesPerUc() const;
@@ -41,8 +40,6 @@ public:
     static bool compareStudentsByIdAscending(const Student& student1, const Student& student2);
     static bool compareStudentsByYearAscending(const Student& student1, const Student& student2);
     static bool compareStudentsByUcsAscending(const Student& student1, const Student& student2);
-
-
 
     int dayStrToInt(const std::string& day);
     bool ucClassExists(UcClass& ucClass) const;

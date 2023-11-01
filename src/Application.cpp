@@ -13,7 +13,7 @@
 Application::Application() = default;
 
 
-void Application::readFiles(std::string file1, std::string file2, std::string file3) {
+void Application::readFiles(const std::string& file1, const std::string& file2, const std::string& file3) {
     std::ifstream f1(file1); //should be classes_per_uc.csv
     std::ifstream f2(file2); //should be classes.csv
     std::ifstream f3(file3); //should be students_classes.csv
@@ -85,60 +85,29 @@ void Application::readFiles(std::string file1, std::string file2, std::string fi
 
         data2.push_back(row);
     }
-//
-//    for (auto& row : data2) {
-//        bool studentFound = false;
-//        Student currStudent(row[0], row[1]);
-//        UcClass currUcClass(row[2], row[3]);
-//
-//        if (ucClassExists(currUcClass)) {
-//            for (Student& student : students_) {
-//                if (currStudent == student) {
-//                    student.pushUcClass(currUcClass);
-//                    studentFound = true;
-//                    break;
-//                }
-//            }
-//            if (!studentFound) {
-//                currStudent.pushUcClass(currUcClass);
-//                students_.push_back(currStudent);
-//            }
-//
-//        }
-//
-//        else
-//            std::cerr << "Invalid UC/Class code combination.\n";
-//
-//    }
-
-    // TENTAR POR NUM SET INFORMACAO
 
     for (auto& row : data2) {
         Student currStudent(row[0], row[1]);
         UcClass currUcClass(row[2], row[3]);
         std::list<UcClass> ucClasses;
 
-        auto it = studentsSet_.find(currStudent);
+        auto it = students_.find(currStudent);
 
         if (ucClassExists(currUcClass)) {
-            if (it != studentsSet_.end()) {
+            if (it != students_.end()) {
                 ucClasses = it->getUcClasses();
-                studentsSet_.erase(it);
+                students_.erase(it);
             }
 
             currStudent.setUcClasses(ucClasses);
             currStudent.pushUcClass(currUcClass);
-            studentsSet_.insert(currStudent);
+            students_.insert(currStudent);
         }
 
         else
             std::cerr << "Invalid UC/Class code combination.\n";
 
     }
-
-//    for (const auto& s : studentsSet_) {
-//        std::cout << s.getStudentName() << s.getStudentCode() << '\n';
-//    }
 
 }
 
@@ -172,12 +141,21 @@ void Application::schedules() const {
     std::cout << "\n\t  Press q to exit current menu" << '\n';
     std::cout << "----------------------------------------\n\n";
 
-    char option;
+    std::string option;
 
     std::cout << "> ";
     std::cin >> option;
 
-    switch (option) {
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    if (option.length() != 1) {
+        std::cout << "Choose a valid option!\n";
+        schedules();
+        return;
+    }
+
+    switch (option[0]) {
         case '1':
             schedulesPerStudent();
             break;
@@ -189,8 +167,7 @@ void Application::schedules() const {
             break;
         default:
             std::cout << "Choose a valid option!\n";
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            schedules();
             break;
 
     }
@@ -218,9 +195,6 @@ void Application::schedulesPerUc() const {
     if (ucClassExists(currUcClass)) {
         auto a = currUcClass.getLessons();
 
-//        if (a.empty())
-//            std::cout << "empty" << '\n';
-
         Schedule currSchedule(currUcClass);
         currSchedule.printSchedule(0);
     }
@@ -247,7 +221,7 @@ void Application::schedulesPerStudent() const {
     }
 
     if (input.at(0) >= '0' && input.at(0) <= '9') {
-        for (const Student& student : studentsSet_) {
+        for (const Student& student : students_) {
             if (student.getStudentCode() == input) {
                 studentFound = true;
 
@@ -259,7 +233,7 @@ void Application::schedulesPerStudent() const {
     }
 
     else {
-        for (const Student& student : studentsSet_) {
+        for (const Student& student : students_) {
             if (student.getStudentName() == input) {
                 studentFound = true;
 
@@ -291,11 +265,6 @@ bool Application::ucClassExists(UcClass &ucClass) const {
     return false;
 }
 
-
-
-const std::list<Student> &Application::getStudents() const {
-    return students_;
-}
 
 void Application::students() {
     std::cout << "\n--------------Student Menu--------------\n\n"; //40 chars
@@ -417,7 +386,6 @@ void Application::studentsListing() {
 
 void Application::studentsSearch() {
     std::string input;
-    bool studentFound;
     Student currStudent;
 
     std::cin.clear();
@@ -437,66 +405,43 @@ void Application::studentsSearch() {
 
     if (input.at(0) >= '0' && input.at(0) <= '9') {
         currStudent.setCode(input);
-        it = studentsSet_.find(currStudent);
-//        for (const Student& student : students_) {
-//            if (student.getStudentCode() == input) {
-//                studentFound = true;
-//                currStudent = student;
-//                break;
-//            }
-//        }
+        it = students_.find(currStudent);
+
     }
 
     else {
         currStudent.setName(input);
         it = std::find_if(
-                studentsSet_.begin(),
-                studentsSet_.end(),
+                students_.begin(),
+                students_.end(),
                 [input](const Student& student) {
                     return student.getStudentName() == input;
                 });
-//        for (const Student& student : students_) {
-//            if (student.getStudentName() == input) {
-//                studentFound = true;
-//                currStudent = student;
-//                break;
-//            }
-//        }
+
 
     }
 
 
-
-//    if (!studentFound){
-//        std::cout << "Student not found/doesn't exist.\n";
-//
-//        std::cin.clear();
-//        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//
-//        students();
-//        return;
-//    }
-
-    if (it == studentsSet_.end()) {
+    if (it == students_.end()) {
         std::cout << "Student not found/doesn't exist.\n";
 
         students();
         return;
     }
 
-    else {
-        currStudent = *it;
-        std::cout << "\n----------------------------------------\n";
-        std::cout << std::setw(20) << currStudent.getStudentName() << "'s Profile\n\n";
-        std::cout << "Name: " << std::setw(34) << currStudent.getStudentName() << '\n';
-        std::cout << "Code: " << std::setw(34) << currStudent.getStudentCode() << '\n';
-        std::cout << "Year: " << std::setw(34) << currStudent.getCurricularYear() << '\n';
-        std::cout << "UCs Enrolled:\n";
 
-        for (const UcClass& uc : currStudent.getUcClasses()) {
-            std::cout << std::setw(9) <<"UC: " << uc.getUcId() << " | " << "Class: " << uc.getClassId() <<'\n';
-        }
+    currStudent = *it;
+    std::cout << "\n----------------------------------------\n";
+    std::cout << std::setw(20) << currStudent.getStudentName() << "'s Profile\n\n";
+    std::cout << "Name: " << std::setw(34) << currStudent.getStudentName() << '\n';
+    std::cout << "Code: " << std::setw(34) << currStudent.getStudentCode() << '\n';
+    std::cout << "Year: " << std::setw(34) << currStudent.getCurricularYear() << '\n';
+    std::cout << "UCs Enrolled:\n";
+
+    for (const UcClass& uc : currStudent.getUcClasses()) {
+        std::cout << std::setw(9) <<"UC: " << uc.getUcId() << " | " << "Class: " << uc.getClassId() <<'\n';
     }
+
 
 }
 
@@ -516,18 +461,9 @@ bool Application::compareStudentsByYearAscending(const Student& student1, const 
 bool Application::compareStudentsByUcsAscending(const Student& student1, const Student& student2) {
     return student1.getUcsEnrolled() < student2.getUcsEnrolled();
 }
-//
-//void Application::studentsSort(bool ascending, bool (*comparator)(const Student& a, const Student& b)) {
-//    if (ascending)
-//        students_.sort(comparator);
-//    else {
-//        students_.sort(comparator);
-//        students_.reverse();
-//    }
-//}
 
 std::list<Student> Application::studentsSort(bool ascending, bool (*comparator)(const Student& a, const Student& b)) {
-    std::list<Student> sortedStudents(studentsSet_.begin(), studentsSet_.end());
+    std::list<Student> sortedStudents(students_.begin(), students_.end());
     sortedStudents.sort(comparator);
 
     if (!ascending)
@@ -586,6 +522,10 @@ bool Application::getOrderAndSize(bool& ascending, int& size) const {
         return true;
     }
 
+}
+
+const std::set<Student> &Application::getStudents() const {
+    return students_;
 }
 
 

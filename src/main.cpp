@@ -8,32 +8,12 @@
 
 
 int main(int argc, char* argv[]) {
-    /*
-     * bug: nao da pa dar cin num char, se input > 1 char, so le o primeiro logo pode ler mal; mudar todos pa string
-     *
-     *
-     */
 
-
-
-
-
-////    Authentication auth;
+//    Authentication auth;
 //    auth.readUserDataCSV("../csvdata/userdata.csv");
 //    auth.authMenu();
 
 //    if (auth.isLogged()) {
-
-//    std::string userInput;
-//    std::cout << "Please enter a line of text (press Enter to submit): ";
-//    std::getline(std::cin, userInput);
-//
-//    if (userInput.empty()) {
-//        std::cout << "You didn't enter any text." << std::endl;
-//    } else {
-//        std::cout << "You entered: " << userInput << std::endl;
-//    }
-
         Application app;
         app.readFiles("../csvdata/classes_per_uc.csv", "../csvdata/classes.csv", "../csvdata/students_classes.csv");
 

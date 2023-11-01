@@ -13,7 +13,7 @@ class Authentication {
 private:
     User currentUser;
     bool isLogged_;
-    std::list<User> users; // Secalhar podemos mudar para user binary search tree
+    std::list<User> users;
     std::string userDataCSV;
 
     void loginUser();
