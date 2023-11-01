@@ -5,7 +5,10 @@
 #include <map>
 #include "Student.h"
 
-Student::Student() = default;
+Student::Student() {
+    name_ = "";
+    code_ = "";
+}
 
 Student::Student(std::string& code, std::string& name) {
     code_ = code;
@@ -30,7 +33,7 @@ void Student::pushUcClass(const UcClass uc) {
 }
 
 bool Student::operator==(const Student &other) const {
-    return name_ == other.getStudentName() && code_ == other.getStudentCode();
+    return name_ == other.getStudentName() || code_ == other.getStudentCode();
 }
 
 int Student::getCurricularYear() const {
@@ -58,3 +61,20 @@ int Student::getCurricularYear() const {
 int Student::getUcsEnrolled() const {
     return ucClasses_.size();
 }
+
+bool Student::operator<(const Student &other) const {
+    return code_ < other.getStudentCode();
+}
+
+void Student::setUcClasses(const std::list<UcClass> &ucClasses) {
+    ucClasses_ = ucClasses;
+}
+
+void Student::setCode(const std::string &code) {
+    code_ = code;
+}
+
+void Student::setName(const std::string &name) {
+    name_ = name;
+}
+

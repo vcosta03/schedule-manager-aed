@@ -7,6 +7,8 @@
 
 #include <iostream>
 #include <map>
+#include <map>
+#include <set>
 #include "UcClass.h"
 #include "Schedule.h"
 #include "Student.h"
@@ -15,6 +17,7 @@ class Application {
 private:
     std::vector<UcClass> ucClasses_;
     std::list<Student> students_;
+    std::set<Student> studentsSet_;
 
 public:
     Application();
@@ -31,7 +34,7 @@ public:
     void students();
     void studentsListing();
     void studentsSearch();
-    void studentsSort(bool ascending, bool (*comparator)(const Student& a, const Student& b));
+    std::list<Student> studentsSort(bool ascending, bool (*comparator)(const Student& a, const Student& b));
     bool getOrderAndSize(bool& order, int& size) const;
 
     static bool compareStudentsByNameAscending(const Student& student1, const Student& student2);
