@@ -29,6 +29,7 @@ public:
     void pushLesson(const Lesson& lesson);
 
     bool operator==(const UcClass& other) const;
+    bool operator<(const UcClass& other) const;
 
 };
 

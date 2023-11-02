@@ -47,8 +47,12 @@ bool Ticket::canEnroll(const UcClass &ucClass) const {
 }
 
 void Ticket::addUcClass() {
+//    UcClass ucClassAdd;
+//    if (type_ == 'a') {
+//
+//    }
 //    if (isEnrolled(ucClasses_[0]) && canEnroll(ucClasses_[0])) {
-//        student_.
+//
 //    }
 }
 

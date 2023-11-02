@@ -10,6 +10,8 @@
 #include <iomanip>
 #include <limits>
 
+#define CAP 30; // cap para estudantes por turma
+
 Application::Application() = default;
 
 
@@ -38,7 +40,9 @@ void Application::readFiles(const std::string& file1, const std::string& file2, 
         std::string ucCode, classCode;
 
         if (std::getline(s1, ucCode, ',') && std::getline(s1, classCode, '\r')) {
+            UcClass uc(ucCode, classCode);
             ucClasses_.emplace_back(ucCode, classCode);
+            occupation_[uc] = 0;
         }
 
         else
@@ -102,6 +106,8 @@ void Application::readFiles(const std::string& file1, const std::string& file2, 
             currStudent.setUcClasses(ucClasses);
             currStudent.pushUcClass(currUcClass);
             students_.insert(currStudent);
+
+            occupation_[currUcClass]++;
         }
 
         else
@@ -751,22 +757,54 @@ bool Application::studentExists(Student &student) const {
 
 
 void Application::ticketHandling() {
-    int max = INT32_MIN;
+    std::string option;
 
-    for (const auto& uc : ucClasses_) {
-        int occUc = occupationPerUc(uc);
-        if (max < occUc)
-            max = occUc;
+    std::cout << "\n-----------Ticket Management-----------\n\n"; //40 chars
+    std::cout << "\t1. Check tickets in queue\n";
+    std::cout << "\t2. Accept every ticket\n";
+    std::cout << "\t3. Accept next ticket in queue\n";
+    std::cout << "\t4. Reject every ticket\n";
+    std::cout << "\t5. Reject next ticket in queue\n";
+    std::cout << "\t6. Undo a ticket\n";
+    std::cout << "\n\t  Press q to exit current menu" << '\n';
+    std::cout << "----------------------------------------\n\n";
 
-        std::cout << uc.getUcId() << " -> " << uc.getClassId() << " | " << occUc << '\n';
+    std::cout << "> ";
+    std::cin >> option;
+
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    if (option.length() != 1) {
+        std::cout << "Choose a valid option!\n";
+        ticketHandling();
+        return;
     }
 
-    std::cout << "Cap: " << max << '\n';
-
+    switch (option[0]) {
+        case '1':
+            break;
+        case '2':
+            break;
+        case '3':
+            break;
+        case '4':
+            break;
+        case '5':
+            break;
+        case '6':
+            break;
+        case 'q':
+            break;
+        default:
+            std::cout << "Choose a valid option!\n";
+            ticketHandling();
+            return;
+    }
 }
 
 
-int Application::occupationPerUc(const UcClass &ucClass) const {
+int Application::occupationPerClass(const UcClass &ucClass) const {
     int studentsRegistered = 0;
 
     for (const Student& student : students_) {
@@ -780,6 +818,7 @@ int Application::occupationPerUc(const UcClass &ucClass) const {
 
     return studentsRegistered;
 }
+
 
 
 

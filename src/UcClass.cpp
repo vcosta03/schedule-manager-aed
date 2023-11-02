@@ -34,5 +34,11 @@ const std::string &UcClass::getClassId() const {
     return classId_;
 }
 
+bool UcClass::operator<(const UcClass &other) const {
+    if (ucId_ != other.getUcId())
+        return ucId_ < other.getUcId();
+    return classId_ < other.getClassId();
+}
+
 
 
