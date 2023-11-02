@@ -23,7 +23,7 @@ public:
     int getEndTime() const;
     std::string printTime() const;
     std::string getLessonType() const;
-    bool areOverlapping(Lesson& lesson);
+    bool areOverlapping(const Lesson& lesson) const;
 
 };
 

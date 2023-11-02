@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
 
 
 //            if (auth.getCurrentUser().isAdmin())
-//                std::cout << "\t5. Tickets log (Admin-Only)" << '\n';
+                std::cout << "\t5. Ticket Management " << '\n';
 
 
             std::cout << "\n\t\t\tPress q to exit" << '\n';
@@ -39,37 +39,37 @@ int main(int argc, char* argv[]) {
             std::cout << "> ";
             std::cin >> option;
 
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
             if (option.length() != 1) {
                 std::cout << "Choose a valid option." << std::endl;
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
                 continue;
             }
 
             switch (option[0]) {
                 case '1':
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     app.students();
                     break;
                 case '2':
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     option = 'q';
                     break;
                 case '3':
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     app.schedules();
                     break;
+                case '4':
+                    app.tickets();
+                    break;
+                case '5':
+//                    if (!auth.getCurrentUser().isAdmin()) {
+                        app.ticketHandling();
+                        break;
+//                    }
                 case 'q':
                     break;
 
                 default:
                     std::cout << "Choose a valid option." << std::endl;
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
                     break;
             }

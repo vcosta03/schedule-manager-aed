@@ -204,11 +204,9 @@ void Application::schedulesPerUc() const {
 }
 
 void Application::schedulesPerStudent() const {
-    bool studentFound = false;
     std::string input;
+    Student currStudent;
 
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     std::cout << "\n----------------------------------------\n\n";
     std::cout << "Enter the Student's name or code: ";
@@ -220,39 +218,27 @@ void Application::schedulesPerStudent() const {
         return;
     }
 
-    if (input.at(0) >= '0' && input.at(0) <= '9') {
-        for (const Student& student : students_) {
-            if (student.getStudentCode() == input) {
-                studentFound = true;
+    if (input.at(0) >= '0' && input.at(0) <= '9')
+        currStudent.setCode(input);
 
-                Schedule currSchedule(student);
-                currSchedule.printSchedule(1);
-                break;
-            }
-        }
+
+    else
+        currStudent.setName(input);
+
+    if (studentExists(currStudent)) {
+        std::cout << "\n----------------------------------------\n";
+        std::cout << std::setw(20) << currStudent.getStudentName() << "'s Schedule\n\n";
+        Schedule currSchedule(currStudent);
+        currSchedule.printSchedule(1);
     }
 
     else {
-        for (const Student& student : students_) {
-            if (student.getStudentName() == input) {
-                studentFound = true;
-
-                std::cout << "\n----------------------------------------\n";
-                std::cout << std::setw(20) << student.getStudentName() << "'s Schedule\n\n";
-                Schedule currSchedule(student);
-                currSchedule.printSchedule(1);
-                break;
-            }
-        }
-
-    }
-
-    if (!studentFound){
         std::cout << "Student not found/doesn't exist.\n";
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         schedules();
+        return;
     }
+
+
 }
 
 bool Application::ucClassExists(UcClass &ucClass) const {
@@ -401,45 +387,31 @@ void Application::studentsSearch() {
         return;
     }
 
-    std::set<Student>::const_iterator it;
-
     if (input.at(0) >= '0' && input.at(0) <= '9') {
         currStudent.setCode(input);
-        it = students_.find(currStudent);
 
     }
 
     else {
         currStudent.setName(input);
-        it = std::find_if(
-                students_.begin(),
-                students_.end(),
-                [input](const Student& student) {
-                    return student.getStudentName() == input;
-                });
-
-
     }
 
+    if (studentExists(currStudent)) {
+        std::cout << "\n----------------------------------------\n";
+        std::cout << std::setw(20) << currStudent.getStudentName() << "'s Profile\n\n";
+        std::cout << "Name: " << std::setw(34) << currStudent.getStudentName() << '\n';
+        std::cout << "Code: " << std::setw(34) << currStudent.getStudentCode() << '\n';
+        std::cout << "Year: " << std::setw(34) << currStudent.getCurricularYear() << '\n';
+        std::cout << "UCs Enrolled:\n";
 
-    if (it == students_.end()) {
+        for (const UcClass& uc : currStudent.getUcClasses()) {
+            std::cout << std::setw(9) <<"UC: " << uc.getUcId() << " | " << "Class: " << uc.getClassId() <<'\n';
+        }
+    }
+
+    else {
         std::cout << "Student not found/doesn't exist.\n";
-
         students();
-        return;
-    }
-
-
-    currStudent = *it;
-    std::cout << "\n----------------------------------------\n";
-    std::cout << std::setw(20) << currStudent.getStudentName() << "'s Profile\n\n";
-    std::cout << "Name: " << std::setw(34) << currStudent.getStudentName() << '\n';
-    std::cout << "Code: " << std::setw(34) << currStudent.getStudentCode() << '\n';
-    std::cout << "Year: " << std::setw(34) << currStudent.getCurricularYear() << '\n';
-    std::cout << "UCs Enrolled:\n";
-
-    for (const UcClass& uc : currStudent.getUcClasses()) {
-        std::cout << std::setw(9) <<"UC: " << uc.getUcId() << " | " << "Class: " << uc.getClassId() <<'\n';
     }
 
 
@@ -527,6 +499,284 @@ bool Application::getOrderAndSize(bool& ascending, int& size) const {
 const std::set<Student> &Application::getStudents() const {
     return students_;
 }
+
+void Application::tickets() {
+    std::string inputStudent, option;
+    Student currStudent;
+
+    std::cout << "\n----------------------------------------\n\n";
+    std::cout << "Enter the Student's name or code: ";
+    std::getline(std::cin, inputStudent);
+
+    if (inputStudent.empty()) {
+        std::cout << "Invalid input.\n";
+        tickets();
+        return;
+    }
+
+    if (inputStudent.at(0) >= '0' && inputStudent.at(0) <= '9') {
+        currStudent.setCode(inputStudent);
+
+    }
+
+    else {
+        currStudent.setName(inputStudent);
+    }
+
+    if (studentExists(currStudent)) {
+        std::cout << "\n--------------Tickets Menu--------------\n\n"; //40 chars
+        std::cout << "Student: " << currStudent.getStudentName() << "\n\n";
+        std::cout << "\t1. Enroll in a new UC\n";
+        std::cout << "\t2. Withdraw from an UC\n";
+        std::cout << "\t3. Switch classes within an UC\n";
+        std::cout << "\t4. Switch UC\n";
+        std::cout << "\n\t  Press q to exit current menu" << '\n';
+        std::cout << "----------------------------------------\n\n";
+
+        std::cout << "> ";
+        std::cin >> option;
+
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        if (option.length() != 1) {
+            std::cout << "Choose a valid option!\n";
+            tickets();
+            return;
+        }
+
+        switch (option[0]) {
+            case '1': {
+                std::string inputUc, inputClass;
+
+                std::cout << "\n----------------------------------------\n\n";
+                std::cout << "Enter the UC code: ";
+                std::cin >> inputUc;
+
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                std::cout << "Enter the Class code: ";
+                std::cin >> inputClass;
+
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                UcClass currUcClass(inputUc,  inputClass);
+
+                if (!ucClassExists(currUcClass)) {
+                    std::cout << "Invalid UC/Class code combination.\n";
+                    return;
+                }
+
+                Ticket currTicket(currStudent, 'a', currUcClass);
+                tickets_.push(currTicket);
+
+                std::cout << "\nThe following ticket has been added to\nthe queue and is waiting for approval:\n\n";
+                std::cout << "-> Enroll " << currStudent.getStudentName() << " in " << currUcClass.getUcId() << " in the class " << currUcClass.getClassId() << ".\n";
+
+                break;
+            }
+
+            case '2': {
+                std::string inputUc, inputClass;
+                UcClass currUcClass;
+
+                std::cout << "\n----------------------------------------\n\n";
+                std::cout << "Enter the UC code: ";
+                std::cin >> inputUc;
+
+                for (const UcClass& uc : currStudent.getUcClasses()) {
+                    if (uc.getUcId() == inputUc) {
+                        currUcClass = uc;
+                        break;
+                    }
+                }
+
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                if (currUcClass.getClassId().empty() || currUcClass.getUcId().empty()) {
+                    std::cout << '\n' << currStudent.getStudentName() << " is not enrolled in "<< inputUc << '\n';
+                    return;
+                }
+
+                Ticket currTicket(currStudent, 'd', currUcClass);
+                tickets_.push(currTicket);
+
+                std::cout << "\nThe following ticket has been added to\nthe queue and is waiting for approval:\n\n";
+                std::cout << "-> Withdraw " << currStudent.getStudentName() << " from " << currUcClass.getUcId() << ", class " << currUcClass.getClassId() << ".\n";
+
+
+                break;
+            }
+
+            case '3': {
+                std::string inputUc, inputClass;
+                UcClass ucClassRemove;
+
+                std::cout << "\n----------------------------------------\n\n";
+                std::cout << "Enter the UC code: ";
+                std::cin >> inputUc;
+
+                for (const UcClass& uc : currStudent.getUcClasses()) {
+                    if (uc.getUcId() == inputUc) {
+                        ucClassRemove = uc;
+                        break;
+                    }
+                }
+
+                if (ucClassRemove.getClassId().empty() || ucClassRemove.getUcId().empty()) {
+                    std::cout << '\n' << currStudent.getStudentName() << " is not enrolled in "<< inputUc << '\n';
+                    return;
+                }
+
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                std::cout << "Enter the Class code you desire: ";
+                std::cin >> inputClass;
+
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                UcClass ucClassAdd(inputUc,  inputClass);
+
+                Ticket currTicket(currStudent, 's', ucClassRemove, ucClassAdd);
+                tickets_.push(currTicket);
+
+                std::cout << "\nThe following ticket has been added to\nthe queue and is waiting for approval:\n\n";
+                std::cout << "-> Switch " << currStudent.getStudentName() << " from class " << ucClassRemove.getClassId()
+                            << " to " << ucClassAdd.getClassId() << ",\nwithin " << ucClassAdd.getUcId() << ".\n";
+
+
+                break;
+            }
+
+            case '4': {
+                std::string inputUcRemove, inputUcAdd, inputClassAdd;
+                UcClass ucClassRemove;
+
+
+                std::cout << "\n----------------------------------------\n\n";
+                std::cout << "Enter the UC code to withdraw: ";
+                std::cin >> inputUcRemove;
+                std::cout << '\n';
+
+                for (const UcClass& uc : currStudent.getUcClasses()) {
+                    if (uc.getUcId() == inputUcRemove) {
+                        ucClassRemove = uc;
+                        break;
+                    }
+                }
+
+                if (ucClassRemove.getClassId().empty() || ucClassRemove.getUcId().empty()) {
+                    std::cout << currStudent.getStudentName() << " is not enrolled in "<< inputUcRemove << '\n';
+                    return;
+                }
+
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                std::cout << "Enter the desired UC code: ";
+                std::cin >> inputUcAdd;
+
+                std::cout << "Enter the desired Class code: ";
+                std::cin >> inputClassAdd;
+
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                UcClass ucClassAdd(inputUcAdd, inputClassAdd);
+
+                if (!ucClassExists(ucClassAdd)) {
+                    std::cout << "Invalid UC/Class code combination.\n";
+                    return;
+                }
+
+                Ticket currTicket(currStudent, 's', ucClassRemove, ucClassAdd);
+                tickets_.push(currTicket);
+
+                std::cout << "\nThe following ticket has been added to\nthe queue and is waiting for approval:\n\n";
+                std::cout << "-> Switch " << currStudent.getStudentName() << " from UC: " << ucClassRemove.getUcId() << " | Class: "<< ucClassRemove.getClassId()
+                            <<"\nto UC: " << ucClassAdd.getUcId() << " | Class: " << ucClassAdd.getClassId() <<".\n";
+
+                break;
+            }
+
+            case 'q':
+                break;
+            default:
+                std::cout << "Choose a valid option!\n";
+                return;
+        }
+    }
+
+    else {
+        std::cout << "Student not found/doesn't exist.\n";
+    }
+}
+
+bool Application::studentExists(Student &student) const {
+    std::set<Student>::const_iterator it;
+
+    if (student.getStudentName().empty()) {
+        it = students_.find(student);
+    }
+
+    else {
+        std::string name = student.getStudentName();
+        it = std::find_if(
+                students_.begin(),
+                students_.end(),
+                [name](const Student& student) {
+                    return student.getStudentName() == name;
+                });
+    }
+
+    if (it == students_.end()) {
+        return false;
+    }
+
+    student = *it;
+    return true;
+
+}
+
+
+
+void Application::ticketHandling() {
+    int max = INT32_MIN;
+
+    for (const auto& uc : ucClasses_) {
+        int occUc = occupationPerUc(uc);
+        if (max < occUc)
+            max = occUc;
+
+        std::cout << uc.getUcId() << " -> " << uc.getClassId() << " | " << occUc << '\n';
+    }
+
+    std::cout << "Cap: " << max << '\n';
+
+}
+
+
+int Application::occupationPerUc(const UcClass &ucClass) const {
+    int studentsRegistered = 0;
+
+    for (const Student& student : students_) {
+        for (const UcClass& studentUc : student.getUcClasses()) {
+            if (studentUc == ucClass) {
+                studentsRegistered++;
+                break;
+            }
+        }
+    }
+
+    return studentsRegistered;
+}
+
+
 
 
 

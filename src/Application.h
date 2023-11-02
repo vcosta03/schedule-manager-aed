@@ -7,16 +7,20 @@
 
 #include <iostream>
 #include <map>
-#include <map>
 #include <set>
+#include <queue>
+#include <stack>
 #include "UcClass.h"
 #include "Schedule.h"
 #include "Student.h"
+#include "Ticket.h"
 
 class Application {
 private:
     std::vector<UcClass> ucClasses_;
     std::set<Student> students_;
+    std::queue<Ticket> tickets_; // requests to process
+    std::list<Ticket> processedTickets_; // to undo: if undo-ed should be eliminated from processed tickets
 
 public:
     Application();
@@ -41,8 +45,14 @@ public:
     static bool compareStudentsByYearAscending(const Student& student1, const Student& student2);
     static bool compareStudentsByUcsAscending(const Student& student1, const Student& student2);
 
+    void tickets();
+
+    void ticketHandling();
+    int occupationPerUc(const UcClass& ucClass) const;
+
     int dayStrToInt(const std::string& day);
-    bool ucClassExists(UcClass& ucClass) const;
+    bool ucClassExists(UcClass& ucClass) const; // passa por referencia ucclass para poder alterar
+    bool studentExists(Student& student) const;
 
 };
 

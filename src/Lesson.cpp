@@ -35,7 +35,7 @@ std::string Lesson::getLessonType() const {
     return lessonType_;
 }
 
-bool Lesson::areOverlapping(Lesson& lesson) {
+bool Lesson::areOverlapping(const Lesson& lesson) const{
     /* Futuramente, podemos analisar por dia, assim eliminamos uma condição  */
     if ((lessonType_ == "T" || lesson.getLessonType() == "T") && (weekday_ != lesson.getWeekday() || weekday_ == lesson.getWeekday() && (startTime_+duration_ < lesson.getStartTime() || startTime_ > lesson.getStartTime()+lesson.getDuration())))
         return false;
