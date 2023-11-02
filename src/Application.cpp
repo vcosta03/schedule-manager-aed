@@ -177,18 +177,16 @@ void Application::schedules() const {
 void Application::schedulesPerUc() const {
     std::string ucCode, classCode;
 
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
     std::cout << "\n----------------------------------------\n\n";
     std::cout << "Enter the UC code: ";
     std::cin >> ucCode;
 
+    std::cout << "Enter the Class code: ";
+    std::cin >> classCode;
+
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-    std::cout << "Enter the Class code: ";
-    std::cin >> classCode;
     UcClass currUcClass(ucCode, classCode);
 
 
@@ -555,6 +553,13 @@ void Application::tickets() {
 
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                for (const UcClass& uc : currStudent.getUcClasses()) {
+                    if (uc.getUcId() == inputUc) {
+                        std::cout << '\n' << currStudent.getStudentName() << " is already in " << uc.getUcId() << ".\n";
+                        return;
+                    }
+                }
 
                 std::cout << "Enter the Class code: ";
                 std::cin >> inputClass;
