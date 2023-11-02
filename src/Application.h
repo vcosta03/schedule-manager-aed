@@ -21,7 +21,7 @@ private:
     std::set<Student> students_;
     std::queue<Ticket> tickets_; // requests to process
     std::list<Ticket> processedTickets_; // to undo: if undo-ed should be eliminated from processed tickets
-    std::map<UcClass, int> occupation_; // ocupação por turma
+    std::map<UcClass, int> occupancy_; // ocupação por turma
 
 public:
     Application();
@@ -51,6 +51,9 @@ public:
     void ticketHandling();
     int occupationPerUc(const UcClass& ucClass) const;
     int occupationPerClass(const UcClass& ucClass) const;
+
+    void ucInfo() const;
+    void classInfo(const std::string& ucClass) const;
 
     int dayStrToInt(const std::string& day);
     bool ucClassExists(UcClass& ucClass) const; // passa por referencia ucclass para poder alterar

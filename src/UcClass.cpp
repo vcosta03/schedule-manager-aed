@@ -8,7 +8,7 @@
 
 UcClass::UcClass() = default;
 
-UcClass::UcClass(std::string& ucId, std::string& classId) {
+UcClass::UcClass(const std::string& ucId, const std::string& classId) {
     ucId_ = ucId;
     classId_ = classId;
 }

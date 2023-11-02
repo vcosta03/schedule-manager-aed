@@ -10,7 +10,7 @@
 #include <iomanip>
 #include <limits>
 
-#define CAP 30; // cap para estudantes por turma
+#define CAP 30 // cap para estudantes por turma
 
 Application::Application() = default;
 
@@ -42,7 +42,7 @@ void Application::readFiles(const std::string& file1, const std::string& file2, 
         if (std::getline(s1, ucCode, ',') && std::getline(s1, classCode, '\r')) {
             UcClass uc(ucCode, classCode);
             ucClasses_.emplace_back(ucCode, classCode);
-            occupation_[uc] = 0;
+            occupancy_[uc] = 0;
         }
 
         else
@@ -107,7 +107,7 @@ void Application::readFiles(const std::string& file1, const std::string& file2, 
             currStudent.pushUcClass(currUcClass);
             students_.insert(currStudent);
 
-            occupation_[currUcClass]++;
+            occupancy_[currUcClass]++;
         }
 
         else
@@ -653,6 +653,11 @@ void Application::tickets() {
 
                 UcClass ucClassAdd(inputUc,  inputClass);
 
+                if (!ucClassExists(ucClassAdd)) {
+                    std::cout << "Invalid UC/Class code combination.\n";
+                    return;
+                }
+
                 Ticket currTicket(currStudent, 's', ucClassRemove, ucClassAdd);
                 tickets_.push(currTicket);
 
@@ -817,6 +822,242 @@ int Application::occupationPerClass(const UcClass &ucClass) const {
     }
 
     return studentsRegistered;
+}
+
+void Application::ucInfo() const {
+    std::string displayUc, inputUcCode, optionMenu;
+
+    bool ucFound = false;
+
+    int i = 0;
+
+    std::cout << "\n-------------Available UCs--------------\n\n\t";
+
+    for (const UcClass& uc : ucClasses_) {
+        if (uc.getUcId() != displayUc) {
+            displayUc = uc.getUcId();
+            std::cout << displayUc;
+
+            i++;
+            if (i % 3 == 0)
+                std::cout << '\n' << '\t';
+            else
+                std::cout << '\t';
+        }
+
+    }
+
+    std::cout << "\n\n----------------------------------------\n\n";
+    std::cout << "Enter the UC code: ";
+    std::cin >> inputUcCode;
+
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    for (const UcClass& uc : ucClasses_) {
+        if (inputUcCode == uc.getUcId()) {
+            ucFound = true;
+        }
+    }
+
+    if (!ucFound) {
+        std::cout << "UC not found/doesn't exist.\n";
+        return;
+    }
+
+    std::cout << "\n----------" << inputUcCode <<" Information----------\n\n"; //40 chars
+    std::cout << "\t1. Classes\n";
+    std::cout << "\t2. Occupancy\n";
+    std::cout << "\t3. Registered students\n";
+    std::cout << "\n\t  Press q to exit current menu" << '\n';
+    std::cout << "----------------------------------------\n\n";
+
+    std::cout << "> ";
+    std::cin >> optionMenu;
+
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    if (optionMenu.length() != 1) {
+        std::cout << "Choose a valid option!\n";
+        return;
+    }
+
+    switch (optionMenu[0]) {
+        case '1': {
+            classInfo(inputUcCode);
+            break;
+        }
+        case '2': {
+            int occ = 0;
+            int numClasses = 0;
+
+            for (const auto& p : occupancy_) {
+                if (p.first.getUcId() == inputUcCode) {
+                    occ += p.second;
+                    numClasses++;
+                }
+            }
+
+            int maxOcc = CAP * numClasses;
+            float occPercent = ((float)occ / maxOcc) * 100.0;
+
+
+            std::cout << "\n----------------------------------------\n";
+            std::cout << "UC: " << inputUcCode << "\n\n";
+            std::cout << "Occupancy:" << std::setw(30) <<  occ << '\n';
+            std::cout << "Vacancies:" << std::setw(30) << maxOcc - occ << "\n\n";
+
+            std::cout << "\t\t";
+
+            if (occPercent < 10 && occPercent > 0) {
+                std::cout << "█░░░░░░░░░░░░░░░░░░░ " << (int)occPercent << "%\n";
+                break;
+            }
+
+            for (int i = 0; i < (int)(occPercent/10.0); i++) {
+                std::cout << "██";
+            }
+
+            for (int i = 0; i < 10 - (int)(occPercent/10.0); i++) {
+                std::cout <<"░░";
+            }
+
+            std::cout << ' ' << (int)occPercent << "%\n";
+
+            break;
+        }
+        case '3': {
+            std::cout << "\n-----------Registered Students----------\n";
+            std::cout << "UC: " << inputUcCode << "\n\n";
+            std::cout << std::setw(13) << "ID |" << std::setw(20) << "Name |" << std::setw(7) << "Year |" << '\n';
+
+            for (const Student& student : students_){
+                for (const UcClass& uc : student.getUcClasses()) {
+                    if (uc.getUcId() == inputUcCode) {
+                        std::cout << std::setw(11) << student.getStudentCode() << " |"
+                                  << std::setw(18) << student.getStudentName() << " |"
+                                  << std::setw(5) << student.getCurricularYear() << " |\n";
+                    }
+                }
+            }
+            break;
+        }
+        case 'q':
+            break;
+        default:
+            std::cout << "Choose a valid option!\n";
+            break;
+
+    }
+
+}
+
+void Application::classInfo(const std::string& ucCode) const {
+    std::string inputClassCode, optionMenu;
+
+
+    std::cout << "\n-----------Available Classes------------\n\n\t";
+
+    int i = 0;
+    for (const UcClass& uc : ucClasses_) {
+        if (uc.getUcId() == ucCode) {
+            std::cout << uc.getClassId();
+            i++;
+            if (i % 3 == 0)
+                std::cout << '\n' << '\t';
+            else
+                std::cout << "\t\t";
+        }
+    }
+
+    std::cout << "\n\n----------------------------------------\n\n";
+    std::cout << "Enter the Class code: ";
+    std::cin >> inputClassCode;
+
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    UcClass currUcClass(ucCode, inputClassCode);
+
+    if (!ucClassExists(currUcClass)){
+        std::cout << "Class not found/doesn't exist.\n";
+        return;
+    }
+
+    std::cout << "\n------------" << currUcClass.getClassId() << " Information-----------\n\n"; //40 chars
+    std::cout << "\t1. Occupancy\n";
+    std::cout << "\t2. Registered students\n";
+    std::cout << "\n\t  Press q to exit current menu" << '\n';
+    std::cout << "----------------------------------------\n\n";
+
+
+    std::cout << "> ";
+    std::cin >> optionMenu;
+
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    if (optionMenu.length() != 1) {
+        std::cout << "Choose a valid option!\n";
+        return;
+    }
+
+    switch (optionMenu[0]) {
+        case '1': {
+            auto pair = occupancy_.find(currUcClass);
+            float occPercent = ((float)pair->second / CAP) * 100.0;
+
+            std::cout << "\n----------------------------------------\n";
+            std::cout << "UC: " << ucCode << " | " << "Class: " << inputClassCode << "\n\n";
+            std::cout << "Occupancy:" << std::setw(30) <<  pair->second << '\n';
+            std::cout << "Vacancies:" << std::setw(30) << CAP - pair->second << "\n\n";
+
+            std::cout << "\t\t";
+
+            if (occPercent < 10 && occPercent > 0) {
+                std::cout << "█░░░░░░░░░░░░░░░░░░░ " << (int)occPercent << "%\n";
+                break;
+            }
+
+            for (int i = 0; i < (int)(occPercent/10.0); i++) {
+                std::cout << "██";
+            }
+
+            for (int i = 0; i < 10 - (int)(occPercent/10.0); i++) {
+                std::cout <<"░░";
+            }
+
+            std::cout << ' ' << (int)occPercent << "%\n";
+
+            break;
+        }
+        case '2': {
+            std::cout << "\n-----------Registered Students----------\n";
+            std::cout << "UC: " << ucCode << " | " << "Class: " << inputClassCode << "\n\n";
+            std::cout << std::setw(13) << "ID |" << std::setw(20) << "Name |" << std::setw(7) << "Year |" << '\n';
+
+            for (const Student& student : students_){
+                for (const UcClass& uc : student.getUcClasses()) {
+                    if (uc == currUcClass) {
+                        std::cout << std::setw(11) << student.getStudentCode() << " |"
+                                << std::setw(18) << student.getStudentName() << " |"
+                                << std::setw(5) << student.getCurricularYear() << " |\n";
+                    }
+                }
+            }
+
+            break;
+        }
+        case 'q':
+            break;
+
+        default:
+            std::cout << "Choose a valid option!\n";
+            break;
+
+    }
+
 }
 
 

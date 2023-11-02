@@ -20,7 +20,7 @@ private:
 public:
 
     UcClass();
-    UcClass(std::string& ucId, std::string& classId);
+    UcClass(const std::string& ucId, const std::string& classId);
 
     const std::string &getUcId() const;
     const std::string &getClassId() const;

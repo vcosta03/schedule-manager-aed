@@ -52,7 +52,7 @@ int main(int argc, char* argv[]) {
                     app.students();
                     break;
                 case '2':
-                    option = 'q';
+                    app.ucInfo();
                     break;
                 case '3':
                     app.schedules();
