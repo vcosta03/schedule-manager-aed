@@ -16,16 +16,20 @@ private:
     std::list<User> users;
     std::string userDataCSV;
 
-    void loginUser();
-    void registerUser();
-    bool userExists(std::string username, std::string password);
-    void writeUserDataCSV(User user);
 public:
     Authentication();
-    void readUserDataCSV(const std::string& filename);
-    void authMenu();
+
     bool isLogged();
     User getCurrentUser();
+
+    void authMenu();
+
+    void loginUser();
+    void registerUser();
+    void readUserDataCSV(const std::string& filename);
+    void writeUserDataCSV(User user);
+
+    bool userExists(std::string username, std::string password);
 };
 
 

@@ -21,39 +21,21 @@ Ticket::Ticket(Student &student,const char& type, const UcClass &from, const UcC
     type_ = type;
 }
 
-const Student &Ticket::getStudent() const {
+Student &Ticket::getStudent() {
     return student_;
 }
 
-bool Ticket::isEnrolled(const UcClass &ucClass) const {
-    for (const auto& uc : student_.getUcClasses()) {
-        if (uc == ucClass)
-            return true;
-    }
-    return false;
+
+const std::vector<UcClass> Ticket::getUcClasses() const {
+    return ucClasses_;
 }
 
-bool Ticket::canEnroll(const UcClass &ucClass) const {
-    for (const auto& studentUc : student_.getUcClasses()) {
-        for (const auto& studentLesson : studentUc.getLessons()) {
-            for (const auto& ucLesson : ucClass.getLessons()) {
-                if (studentLesson.areOverlapping(ucLesson))
-                    return false;
-            }
-        }
-    }
-
-    return true;
+const char &Ticket::getType() const {
+    return type_;
 }
 
-void Ticket::addUcClass() {
-//    UcClass ucClassAdd;
-//    if (type_ == 'a') {
-//
-//    }
-//    if (isEnrolled(ucClasses_[0]) && canEnroll(ucClasses_[0])) {
-//
-//    }
+void Ticket::setProcessed(bool processed) {
+    processed_ = processed;
 }
 
 

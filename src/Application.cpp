@@ -135,9 +135,6 @@ int Application::dayStrToInt(const std::string &day) {
     return -1;
 }
 
-const std::vector<UcClass> &Application::getUcClasses() const {
-    return ucClasses_;
-}
 
 
 void Application::schedules() const {
@@ -189,9 +186,6 @@ void Application::schedulesPerUc() const {
 
     std::cout << "Enter the Class code: ";
     std::cin >> classCode;
-
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     UcClass currUcClass(ucCode, classCode);
 
@@ -325,6 +319,7 @@ void Application::studentsListing() {
     }
 
     if (optionMenu[0] == 'q') {
+        students();
         return;
     }
 
@@ -350,7 +345,7 @@ void Application::studentsListing() {
         std::cout << "\n----------------------------------------\n";
         std::cout << std::setw(11) << "ID |" << std::setw(20) << "Name |" << std::setw(7) << "Year |" << std::setw(7) << "UC's |" << '\n';
 
-        size_t limit = (size == -1 ? sortedStudents.size()-1 : size), i = 0;
+        size_t limit = (size == -1 ? sortedStudents.size() : size), i = 0;
         auto it = sortedStudents.begin();
 
         while (i < limit && it != sortedStudents.end()){
@@ -481,7 +476,7 @@ bool Application::getOrderAndSize(bool& ascending, int& size) const {
             size = std::stoi(optionSize);
 
             if (size <= 0 || size > 100) {
-                std::cout << "The number of students to display must\nbe between 1 to 100, press ENTER for\nevery student.\n";
+                std::cout << "The number of students to display must\nbe between 1 to 100.\n";
                 return false;
             }
 
@@ -498,10 +493,6 @@ bool Application::getOrderAndSize(bool& ascending, int& size) const {
         return true;
     }
 
-}
-
-const std::set<Student> &Application::getStudents() const {
-    return students_;
 }
 
 void Application::tickets() {
@@ -765,9 +756,9 @@ void Application::ticketHandling() {
     std::string option;
 
     std::cout << "\n-----------Ticket Management-----------\n\n"; //40 chars
-    std::cout << "\t1. Check tickets in queue\n";
-    std::cout << "\t2. Accept every ticket\n";
-    std::cout << "\t3. Accept next ticket in queue\n";
+    std::cout << "\t1. Check next ticket in queue\n";
+    std::cout << "\t2. Process every ticket\n";
+    std::cout << "\t3. Process next ticket in queue\n";
     std::cout << "\t4. Reject every ticket\n";
     std::cout << "\t5. Reject next ticket in queue\n";
     std::cout << "\t6. Undo a ticket\n";
@@ -786,21 +777,184 @@ void Application::ticketHandling() {
         return;
     }
 
+    if (option[0] == 'q') {
+        return;
+    }
+    std::cout << "\n----------------------------------------\n\n";
+
+
     switch (option[0]) {
-        case '1':
+        case '1': {
+            if (tickets_.empty()) {
+                std::cout << "There are no tickets in queue!\n";
+                return;
+            }
+
+            std::cout << "The following ticket is waiting in queue:\n\n";
+            auto ticket = tickets_.front();
+            std::cout << "-> " <<  ticket.getStudent().getStudentName() << " wants to ";
+
+            switch (ticket.getType()) {
+                case 'a':
+                    std::cout << "enroll in " << ticket.getUcClasses()[0].getUcId() << " | " << ticket.getUcClasses()[0].getClassId() << '\n';
+                    break;
+                case 'd':
+                    std::cout << "withdraw from " << ticket.getUcClasses()[0].getUcId() << " | " << ticket.getUcClasses()[0].getClassId() << '\n';
+                    break;
+                case 's':
+                    std::cout << "switch from " << ticket.getUcClasses()[0].getUcId() << " | " << ticket.getUcClasses()[0].getClassId()
+                              << "\nto " << ticket.getUcClasses()[1].getUcId() << " | " << ticket.getUcClasses()[1].getClassId() << '\n';
+            }
+            ticketHandling();
+            return;
+        }
+
+        case '2': {
+            if (tickets_.empty()) {
+                std::cout << "There are no tickets in queue!\n";
+                return;
+            }
+            std::cout << "The following tickets were removed from the queue:\n";
+            while (!tickets_.empty()) {
+                Ticket currTicket = tickets_.front();
+
+                std::cout << "\n-> " <<  currTicket.getStudent().getStudentName() << " wants to ";
+
+                switch (currTicket.getType()) {
+                    case 'a':
+                        std::cout << "enroll in " << currTicket.getUcClasses()[0].getUcId() << " | " << currTicket.getUcClasses()[0].getClassId() << '\n';
+                        break;
+                    case 'd':
+                        std::cout << "withdraw from " << currTicket.getUcClasses()[0].getUcId() << " | " << currTicket.getUcClasses()[0].getClassId() << '\n';
+                        break;
+                    case 's':
+                        std::cout << "switch from " << currTicket.getUcClasses()[0].getUcId() << " | " << currTicket.getUcClasses()[0].getClassId()
+                                  << "\nto " << currTicket.getUcClasses()[1].getUcId() << " | " << currTicket.getUcClasses()[1].getClassId() << '\n';
+                }
+
+                std::cout << "\tSTATUS: ";
+
+                if (processTicket(currTicket)) {
+                    std::cout << "accepted\n";
+                    currTicket.setProcessed(true);
+                    processedTickets_.push_back(currTicket);
+
+                }
+
+                tickets_.pop();
+            }
+
             break;
-        case '2':
+        }
+        case '3': {
+            if (tickets_.empty()) {
+                std::cout << "There are no tickets in queue!\n";
+                return;
+            }
+
+            Ticket currTicket = tickets_.front();
+
+            std::cout << "The following ticket was removed from the queue:\n\n";
+            std::cout << "-> " <<  currTicket.getStudent().getStudentName() << " wants to ";
+
+            switch (currTicket.getType()) {
+                case 'a':
+                    std::cout << "enroll in " << currTicket.getUcClasses()[0].getUcId() << " | " << currTicket.getUcClasses()[0].getClassId() << '\n';
+                    break;
+                case 'd':
+                    std::cout << "withdraw from " << currTicket.getUcClasses()[0].getUcId() << " | " << currTicket.getUcClasses()[0].getClassId() << '\n';
+                    break;
+                case 's':
+                    std::cout << "switch from " << currTicket.getUcClasses()[0].getUcId() << " | " << currTicket.getUcClasses()[0].getClassId()
+                              << "\nto " << currTicket.getUcClasses()[1].getUcId() << " | " << currTicket.getUcClasses()[1].getClassId() << '\n';
+            }
+
+            std::cout << "\tSTATUS: ";
+
+            if (processTicket(currTicket)) {
+                std::cout << "accepted\n";
+                currTicket.setProcessed(true);
+                processedTickets_.push_back(currTicket);
+
+            }
+            tickets_.pop();
+            ticketHandling();
             break;
-        case '3':
+        }
+
+        case '4': {
+            if (tickets_.empty()) {
+                std::cout << "There are no tickets in queue!\n";
+                return;
+            }
+
+            std::cout << "The following tickets have been rejected\nand removed from the queue:\n";
+            while (!tickets_.empty()) {
+                auto ticket = tickets_.front();
+                std::cout << "\n-> " << ticket.getStudent().getStudentName() << " wants to ";
+
+                switch (ticket.getType()) {
+                    case 'a':
+                        std::cout << "enroll in " << ticket.getUcClasses()[0].getUcId() << " | "
+                                  << ticket.getUcClasses()[0].getClassId() << '\n';
+                        break;
+                    case 'd':
+                        std::cout << "withdraw from " << ticket.getUcClasses()[0].getUcId() << " | "
+                                  << ticket.getUcClasses()[0].getClassId() << '\n';
+                        break;
+                    case 's':
+                        std::cout << "switch from " << ticket.getUcClasses()[0].getUcId() << " | "
+                                  << ticket.getUcClasses()[0].getClassId()
+                                  << "\nto " << ticket.getUcClasses()[1].getUcId() << " | "
+                                  << ticket.getUcClasses()[1].getClassId() << '\n';
+                }
+
+                tickets_.pop();
+            }
+
             break;
-        case '4':
+        }
+
+        case '5': {
+            if (tickets_.empty()) {
+                std::cout << "There are no tickets in queue!\n";
+                return;
+            }
+
+            std::cout << "The following ticket has been rejected\nand removed from the queue:\n\n";
+            auto ticket = tickets_.front();
+            std::cout << "-> " << ticket.getStudent().getStudentName() << " wants to ";
+
+            switch (ticket.getType()) {
+                case 'a':
+                    std::cout << "enroll in " << ticket.getUcClasses()[0].getUcId() << " | "
+                              << ticket.getUcClasses()[0].getClassId() << '\n';
+                    break;
+                case 'd':
+                    std::cout << "withdraw from " << ticket.getUcClasses()[0].getUcId() << " | "
+                              << ticket.getUcClasses()[0].getClassId() << '\n';
+                    break;
+                case 's':
+                    std::cout << "switch from " << ticket.getUcClasses()[0].getUcId() << " | "
+                              << ticket.getUcClasses()[0].getClassId()
+                              << "\nto " << ticket.getUcClasses()[1].getUcId() << " | "
+                              << ticket.getUcClasses()[1].getClassId() << '\n';
+            }
+            tickets_.pop();
+
+            ticketHandling();
             break;
-        case '5':
+        }
+
+        case '6': {
+            if (processedTickets_.empty()) {
+                std::cout << "There are no tickets that can be reversed.\n";
+                return;
+            }
+            undoTickets();
             break;
-        case '6':
-            break;
-        case 'q':
-            break;
+        }
+
         default:
             std::cout << "Choose a valid option!\n";
             ticketHandling();
@@ -808,21 +962,6 @@ void Application::ticketHandling() {
     }
 }
 
-
-int Application::occupationPerClass(const UcClass &ucClass) const {
-    int studentsRegistered = 0;
-
-    for (const Student& student : students_) {
-        for (const UcClass& studentUc : student.getUcClasses()) {
-            if (studentUc == ucClass) {
-                studentsRegistered++;
-                break;
-            }
-        }
-    }
-
-    return studentsRegistered;
-}
 
 void Application::ucInfo() const {
     std::string displayUc, inputUcCode, optionMenu;
@@ -866,9 +1005,10 @@ void Application::ucInfo() const {
     }
 
     std::cout << "\n----------" << inputUcCode <<" Information----------\n\n"; //40 chars
-    std::cout << "\t1. Classes\n";
+    std::cout << "\t1. Class Information\n";
     std::cout << "\t2. Occupancy\n";
-    std::cout << "\t3. Registered students\n";
+    std::cout << "\t3. Occupancy per Class\n";
+    std::cout << "\t4. Registered students\n";
     std::cout << "\n\t  Press q to exit current menu" << '\n';
     std::cout << "----------------------------------------\n\n";
 
@@ -920,24 +1060,42 @@ void Application::ucInfo() const {
             }
 
             for (int i = 0; i < 10 - (int)(occPercent/10.0); i++) {
-                std::cout <<"░░";
+                std::cout << "░░";
             }
 
             std::cout << ' ' << (int)occPercent << "%\n";
 
             break;
         }
+
         case '3': {
+            std::cout << "\n----------------------------------------\n";
+            std::cout << "UC: " << inputUcCode << "\n\n";
+            std::cout << std::setw(10) << "Class |" << std::setw(12) << "Occupancy |" << std::setw(12) << "Vacancies |" << '\n';
+
+
+            for (const UcClass& uc : ucClasses_) {
+                if (uc.getUcId() == inputUcCode) {
+                    std::cout << std::setw(8) << uc.getClassId() << " |"
+                              << std::setw(10) << occupancy_.find(uc)->second << " |"
+                              << std::setw(10) << 30 - occupancy_.find(uc)->second << " |\n";
+                }
+            }
+            break;
+        }
+
+        case '4': {
             std::cout << "\n-----------Registered Students----------\n";
             std::cout << "UC: " << inputUcCode << "\n\n";
-            std::cout << std::setw(13) << "ID |" << std::setw(20) << "Name |" << std::setw(7) << "Year |" << '\n';
+            std::cout << std::setw(13) << "ID |" << std::setw(20) << "Name |" << std::setw(7) << "Year |" << std::setw(12) << "Class |" <<'\n';
 
             for (const Student& student : students_){
                 for (const UcClass& uc : student.getUcClasses()) {
                     if (uc.getUcId() == inputUcCode) {
                         std::cout << std::setw(11) << student.getStudentCode() << " |"
                                   << std::setw(18) << student.getStudentName() << " |"
-                                  << std::setw(5) << student.getCurricularYear() << " |\n";
+                                  << std::setw(5) << student.getCurricularYear() << " | "
+                                  << std::setw(9) << uc.getClassId() << " |\n";
                     }
                 }
             }
@@ -1059,6 +1217,332 @@ void Application::classInfo(const std::string& ucCode) const {
     }
 
 }
+
+bool Application::processTicket(Ticket &ticket) {
+    /*
+     * se type = a; checkar o balance da ocupação das turmas, checkar se o horario nao fica com cadeiras overlapping, checkar
+     *              se o numero de estudantes na turma nao fica acima do CAP, num UCS do estudante <= 7, dar update a ocupacao
+     *              e dar update ao student no set
+     *
+     * se type = d; eliminar se estudante tiver inscrito na turma, dar update à ocupação, update ao student no
+     *
+     * se type = s; checkar tudo que checkamos no add, menos num UCS (fica igual), dar update a ocupacao e dar update ao student no set
+     *
+     * quando e processado, adicionar a list de processados
+     */
+
+    switch (ticket.getType()) {
+        case 'd': {
+            std::list<UcClass> currUcClasses;
+            Student currStudent = ticket.getStudent();
+
+            auto itStu = students_.find(currStudent);
+
+            if (itStu != students_.end()) {
+                currUcClasses = itStu->getUcClasses();
+                auto itUc = std::find(currUcClasses.begin(), currUcClasses.end(), ticket.getUcClasses()[0]);
+
+                if (itUc == currUcClasses.end()) {
+                    std::cout << "rejected, the student is not enrolled in the UC/class.\n";
+                    return false;
+                }
+
+                currUcClasses.erase(itUc);
+
+                students_.erase(itStu);
+                currStudent.setUcClasses(currUcClasses);
+                students_.insert(currStudent);
+                occupancy_[ticket.getUcClasses()[0]]--;
+
+                return true;
+            }
+
+            else {
+                std::cout << "rejected, student not found/doesn't exist.\n";
+                return false;
+            }
+
+        }
+        case 'a': {
+            std::list<UcClass> currUcClasses;
+            Student currStudent = ticket.getStudent();
+            UcClass ucClassTo = ticket.getUcClasses()[0];
+
+            auto itStu = students_.find(currStudent);
+
+            if (itStu != students_.end()) {
+                currUcClasses = itStu->getUcClasses();
+
+                auto itUc = std::find(currUcClasses.begin(), currUcClasses.end(), ucClassTo);
+
+                if (itUc != currUcClasses.end()) {
+                    std::cout << "rejected, the student is already enrolled in the UC/class.\n";
+                    return false;
+                }
+
+                if (currUcClasses.size() > 7)  {
+                    std::cout << "rejected, the student is already enrolled in 7 UCs.\n";
+                    return false;
+                }
+
+                if (classBalanceDisturbed(occupancy_[ucClassTo] + 1 , ucClassTo)) {
+                    std::cout << "rejected, joining this class would disrupt class balance within the UC.\n";
+                    return false;
+                }
+
+                if (checkOverlapping(currStudent, ucClassTo)) {
+                    std::cout << "rejected, lesson overlapping detected.\n";
+                    return false;
+                }
+
+                currUcClasses.push_back(ucClassTo);
+
+                students_.erase(itStu);
+
+                currStudent.setUcClasses(currUcClasses);
+                students_.insert(currStudent);
+                occupancy_[ucClassTo]++;
+
+                return true;
+            }
+
+            else {
+                std::cout << "rejected, student not found/doesn't exist.\n";
+                return false;
+            }
+        }
+
+        case 's': {
+            std::list<UcClass> currUcClasses;
+            Student currStudent = ticket.getStudent();
+            UcClass ucClassFrom = ticket.getUcClasses()[0];
+            UcClass ucClassTo = ticket.getUcClasses()[1];
+
+            auto itStu = students_.find(currStudent);
+
+            if (itStu != students_.end()) {
+                currUcClasses = itStu->getUcClasses();
+
+                auto itUcErase = std::find(currUcClasses.begin(), currUcClasses.end(), ucClassFrom);
+                auto itUcAdd = std::find(currUcClasses.begin(), currUcClasses.end(), ucClassTo);
+
+                if (itUcErase == currUcClasses.end()) {
+                    std::cout << "rejected, the student is not enrolled in the UC/Class.\n";
+                    return false;
+                }
+
+                if (itUcAdd != currUcClasses.end()) {
+                    std::cout << "rejected, the student is already enrolled in the UC/Class.\n";
+                    return false;
+                }
+
+                currUcClasses.erase(itUcErase);
+                occupancy_[ucClassFrom]--;
+
+                if (classBalanceDisturbed(occupancy_[ucClassTo]+1, ucClassTo)) {
+                    std::cout << "rejected, switching to this class would disrupt class balance within the UC.\n";
+                    occupancy_[ucClassFrom]++;
+                    return false;
+                }
+
+                currStudent.setUcClasses(currUcClasses);
+
+                if (checkOverlapping(currStudent, ucClassTo)) {
+                    std::cout << "rejected, lesson overlapping detected.\n";
+                    currUcClasses.push_back(ucClassFrom);
+                    currStudent.setUcClasses(currUcClasses);
+                    occupancy_[ucClassFrom]++;
+                    return false;
+                }
+
+                currUcClasses.push_back(ucClassTo);
+                students_.erase(itStu);
+
+                currStudent.setUcClasses(currUcClasses);
+                students_.insert(currStudent);
+
+                occupancy_[ucClassTo]++;
+
+                return true;
+            }
+
+            else {
+                std::cout << "rejected, student not found/doesn't exist.\n";
+                return false;
+            }
+            break;
+        }
+
+        default:
+            std::cout << "Invalid ticket type.\n";
+            break;
+
+    }
+
+    return false;
+}
+
+bool Application::classBalanceDisturbed(int numStudents, const UcClass &ucClassTo) const {
+    for (const auto& p : occupancy_) {
+        if (p.first.getUcId() == ucClassTo.getUcId() && p.first.getClassId() != ucClassTo.getClassId()) {
+            if (abs(p.second-numStudents) > 4 && occupancy_.find(ucClassTo)->second < p.second ) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool Application::checkOverlapping(const Student &student, const UcClass &ucClass) const {
+    for (const auto& studentUc : student.getUcClasses()) {
+        for (const auto& studentLesson : studentUc.getLessons()) {
+            for (const auto& ucLesson : ucClass.getLessons()) {
+                if (studentLesson.areOverlapping(ucLesson)) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+void Application::undoTickets() {
+    std::string optionSize, optionUndo;
+    int size;
+
+    std::cout << processedTickets_.size() <<" tickets have been accepted and can be\nreversed.\n\n";
+    std::cout << "How many tickets to display? (Press ENTER\nfor every ticket)\n" << "> ";
+    std::getline(std::cin, optionSize);
+
+    if (!optionSize.empty()) {
+        try {
+            size = std::stoi(optionSize);
+
+            if (size <= 0 || size > 100) {
+                std::cout << "The number of students to display must\nbe between 1 to 100.\n";
+                ticketHandling();
+                return;
+            }
+
+        }
+        catch (const std::invalid_argument& e) {
+            std::cout << "Choose a valid option!\n";
+            ticketHandling();
+            return;
+        }
+    }
+
+    else
+        size = -1;
+
+    std::cout << "\n----------------------------------------\n";
+
+    size_t limit = (size == -1 ? processedTickets_.size() : size), i = 0;
+    auto it = processedTickets_.begin();
+
+    while (i < limit && it != processedTickets_.end()) {
+        Ticket currTicket = *it;
+        std::cout << '\n' << i + 1 << ". " << currTicket.getStudent().getStudentName();
+
+        switch(currTicket.getType()) {
+            case 'a':
+                std::cout << " enrolled in " << currTicket.getUcClasses()[0].getUcId() << " | " << currTicket.getUcClasses()[0].getClassId() << '\n';
+                break;
+            case 'd':
+                std::cout << " withdrew from " << currTicket.getUcClasses()[0].getUcId() << " | " << currTicket.getUcClasses()[0].getClassId() << '\n';
+                break;
+            case 's':
+                std::cout << " switched from " << currTicket.getUcClasses()[0].getUcId() << " | " << currTicket.getUcClasses()[0].getClassId()
+                            << " to " << currTicket.getUcClasses()[1].getUcId() << " | " << currTicket.getUcClasses()[1].getClassId() << '\n';
+                break;
+        }
+
+        std::cout << "\tUndo (y/n): ";
+        std::cin >> optionUndo;
+
+        if (optionUndo.length() != 1) {
+            std::cout << "Invalid input.\n";
+            return;
+        }
+
+        switch (optionUndo[0]) {
+            case 'y': {
+                std::cout << "\tSTATUS: ";
+                switch (currTicket.getType()) {
+                    case 'a': {
+                        Ticket undoTicket(currTicket.getStudent(), 'd', currTicket.getUcClasses()[0]);
+                        if (processTicket(undoTicket)) {
+                            std::cout << "accepted\n";
+                        }
+                        break;
+                    }
+
+                    case 'd': {
+                        Ticket undoTicket(currTicket.getStudent(), 'a', currTicket.getUcClasses()[0]);
+                        if (processTicket(undoTicket)) {
+                            std::cout << "accepted\n";
+                        }
+                        break;
+                    }
+
+                    case 's': {
+                        Ticket undoTicket(currTicket.getStudent(), 's', currTicket.getUcClasses()[1], currTicket.getUcClasses()[0]);
+                        if (processTicket(undoTicket)) {
+                            std::cout << "accepted\n";
+                        }
+                        break;
+                    }
+
+                }
+
+                it = processedTickets_.erase(it);
+                break;
+            }
+
+            case 'n': {
+                std::cout << '\n';
+                it++;
+                break;
+            }
+
+            default:
+                std::cout << "Invalid input.\n";
+                return;
+        }
+
+        i++;
+    }
+
+}
+
+void Application::sysLog()  {
+    std::cout <<"\n---------------System Log---------------\n";
+
+    if (processedTickets_.empty()) {
+        std::cout << "\nThere have been no changes made.\n";
+        return;
+    }
+
+
+    for (Ticket& ticket : processedTickets_) {
+        std::cout << "\n-> " << ticket.getStudent().getStudentName();
+
+        switch(ticket.getType()) {
+            case 'a':
+                std::cout << " enrolled in " << ticket.getUcClasses()[0].getUcId() << " | " << ticket.getUcClasses()[0].getClassId() << '\n';
+                break;
+            case 'd':
+                std::cout << " withdrew from " << ticket.getUcClasses()[0].getUcId() << " | " << ticket.getUcClasses()[0].getClassId() << '\n';
+                break;
+            case 's':
+                std::cout << " switched from " << ticket.getUcClasses()[0].getUcId() << " | " << ticket.getUcClasses()[0].getClassId()
+                          << " to " << ticket.getUcClasses()[1].getUcId() << " | " << ticket.getUcClasses()[1].getClassId() << '\n';
+                break;
+        }
+    }
+}
+
+
 
 
 

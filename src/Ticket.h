@@ -21,15 +21,11 @@ public:
     Ticket(Student& student, const char& type, const UcClass& ucClass);
     Ticket(Student& student, const char& type, const UcClass& from, const UcClass& to);
 
-    const Student& getStudent() const;
+    Student& getStudent();
+    const std::vector<UcClass> getUcClasses() const;
+    const char& getType() const;
 
-    void deleteUcClass();
-    void addUcClass();
-    void switchUcClasses();
-
-    bool isEnrolled(const UcClass& ucClass) const;
-    bool canEnroll(const UcClass& ucClass) const;
-
+    void setProcessed(bool processed);
 };
 
 

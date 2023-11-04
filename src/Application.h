@@ -20,14 +20,11 @@ private:
     std::vector<UcClass> ucClasses_;
     std::set<Student> students_;
     std::queue<Ticket> tickets_; // requests to process
-    std::list<Ticket> processedTickets_; // to undo: if undo-ed should be eliminated from processed tickets
+    std::list<Ticket> processedTickets_; // to undo: if undo-ed should be eliminated from processed tickets, so podem ir tickets ACEITES
     std::map<UcClass, int> occupancy_; // ocupação por turma
 
 public:
     Application();
-
-    const std::vector<UcClass> &getUcClasses() const;
-    const std::set<Student> &getStudents() const;
 
     void readFiles(const std::string& file1, const std::string& file2, const std::string& file3);
 
@@ -49,11 +46,15 @@ public:
     void tickets();
 
     void ticketHandling();
-    int occupationPerUc(const UcClass& ucClass) const;
-    int occupationPerClass(const UcClass& ucClass) const;
+    bool processTicket(Ticket& ticket);
+    void undoTickets();
+    bool classBalanceDisturbed(int numStudents, const UcClass &ucClassTo) const;
+    bool checkOverlapping(const Student &student, const UcClass& ucClass) const;
 
     void ucInfo() const;
     void classInfo(const std::string& ucClass) const;
+
+    void sysLog();
 
     int dayStrToInt(const std::string& day);
     bool ucClassExists(UcClass& ucClass) const; // passa por referencia ucclass para poder alterar

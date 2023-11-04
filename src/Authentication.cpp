@@ -57,7 +57,9 @@ void Authentication::loginUser() {
 
     else {
         isLogged_ = false;
-        std::cout << "\nInvalid username/password combination. " << std::endl;
+        std::cout << "\nInvalid username/password combination.\n" << std::endl;
+
+        authMenu();
     }
 
 }
