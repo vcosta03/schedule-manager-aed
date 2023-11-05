@@ -21,7 +21,9 @@ Head inside the `docs/output` directory for the `index.html` file, with the proj
 ```bash
 mkdir build
 cd build
+```
 
+```bash
 cmake ..
 make
 ```
