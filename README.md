@@ -8,6 +8,10 @@ This project offers a user-friendly Command Line Interface (CLI) for performing 
 
 Developed as part of the "Algorithms and Data Structures" (AED) course, this project aims to showcase the practical application of linear (vector, list, stack, queue) and hierarchical data structures (set) in C++, as well as different sorting and searching algorithms.
 
+### Documentation
+
+Head inside the `docs/output` directory for the `index.html` file, with the project's documentation made using Doxygen.
+
 ## Getting Started
 
 ### Installing
