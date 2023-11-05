@@ -14,23 +14,24 @@
 
 Application::Application() = default;
 
-
-void Application::readFiles(const std::string& file1, const std::string& file2, const std::string& file3) {
+void Application::readFiles(const std::string& file1, const std::string& file2, const std::string& file3, const std::string& file4) {
     std::ifstream f1(file1); //should be classes_per_uc.csv
     std::ifstream f2(file2); //should be classes.csv
     std::ifstream f3(file3); //should be students_classes.csv
+    std::ifstream f4(file4); //should be syslog.csv
 
     std::vector<std::vector<std::string>> data1, data2;
-    std::string line1, line2, line3;
+    std::string line1, line2, line3, line4;
 
 
     // ignore header
     std::getline(f1, line1);
     std::getline(f2, line2);
     std::getline(f3, line3);
+    std::getline(f4, line4);
 
 
-    if (!f1.is_open() || !f2.is_open() || !f3.is_open()) {
+    if (!f1.is_open() || !f2.is_open() || !f3.is_open() || !f4.is_open()) {
         std::cerr << "Failed to open a CSV file." << std::endl;
     }
 
@@ -112,7 +113,55 @@ void Application::readFiles(const std::string& file1, const std::string& file2, 
 
         else
             std::cerr << "Invalid UC/Class code combination.\n";
+    }
 
+    while (std::getline(f4, line4)) {
+        std::istringstream s4(line4);
+        std::string studentCode, type, ucCodeFrom, classCodeFrom, ucCodeTo, classCodeTo;
+        Student currStudent;
+
+        if (std::getline(s4, studentCode, ',') &&
+            std::getline(s4, type, ',') &&
+            std::getline(s4, ucCodeFrom, ',') &&
+            std::getline(s4, classCodeFrom, ',') &&
+            std::getline(s4, ucCodeTo, ',') &&
+            std::getline(s4, classCodeTo)) {
+
+
+
+            if (type == "s") {
+                currStudent.setCode(studentCode);
+                UcClass ucClassFrom(ucCodeFrom, classCodeFrom), ucClassTo(ucCodeTo, classCodeTo);
+
+                if (studentExists(currStudent) && ucClassExists(ucClassFrom) && ucClassExists(ucClassTo)) {
+                   Ticket currTicket(currStudent, 's', ucClassFrom, ucClassTo);
+                   processTicket(currTicket);
+                   processedTickets_.push_back(currTicket);
+                }
+
+                else
+                    std::cerr << "Invalid line in the CSV.";
+
+            }
+
+            else if (type == "a" || type == "d") {
+                currStudent.setCode(studentCode);
+                UcClass ucClassTo(ucCodeTo, classCodeTo);
+                char typeChar = (type == "a" ? 'a' : 'd');
+
+                if (studentExists(currStudent) && ucClassExists(ucClassTo)) {
+                    Ticket currTicket(currStudent, typeChar, ucClassTo);
+                    processTicket(currTicket);
+                    processedTickets_.push_back(currTicket);
+                }
+
+                else
+                    std::cerr << "Invalid line in the CSV.";
+            }
+
+            else
+                std::cerr << "Invalid line in the CSV.";
+        }
     }
 
 }
@@ -836,7 +885,6 @@ void Application::ticketHandling() {
 
                 if (processTicket(currTicket)) {
                     std::cout << "accepted\n";
-                    currTicket.setProcessed(true);
                     processedTickets_.push_back(currTicket);
 
                 }
@@ -873,7 +921,6 @@ void Application::ticketHandling() {
 
             if (processTicket(currTicket)) {
                 std::cout << "accepted\n";
-                currTicket.setProcessed(true);
                 processedTickets_.push_back(currTicket);
 
             }
@@ -1540,6 +1587,37 @@ void Application::sysLog()  {
                 break;
         }
     }
+}
+
+void Application::writeLog(const std::string &file1) {
+    std::ofstream file(file1);
+
+
+    if (!file.is_open()) {
+        std::cerr << "Failed to open the CSV file for writing." << std::endl;
+        return;
+    }
+
+    file << "StudentCode,Type,UcCodeFrom,ClassCodeFrom,UcCodeTo,ClassCodeTo\n";
+
+    for (Ticket& ticket : processedTickets_) {
+        file << ticket.getStudent().getStudentCode() << ","
+            << ticket.getType() << ",";
+
+        if (ticket.getType() == 'a' || ticket.getType() == 'd') {
+            file << "0,0," << ticket.getUcClasses()[0].getUcId() << ','
+                << ticket.getUcClasses()[0].getClassId() << '\n';
+        }
+
+        else {
+            file << ticket.getUcClasses()[0].getUcId() << ','
+                 << ticket.getUcClasses()[0].getClassId() << ','
+                 << ticket.getUcClasses()[1].getUcId() << ','
+                 << ticket.getUcClasses()[1].getClassId() << '\n';
+        }
+    }
+
+    file.close();
 }
 
 

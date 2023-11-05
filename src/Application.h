@@ -26,7 +26,8 @@ private:
 public:
     Application();
 
-    void readFiles(const std::string& file1, const std::string& file2, const std::string& file3);
+    void readFiles(const std::string& file1, const std::string& file2, const std::string& file3, const std::string& file4);
+    void writeLog(const std::string& file1);
 
     void schedules() const;
     void schedulesPerUc() const;

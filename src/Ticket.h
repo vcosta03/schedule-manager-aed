@@ -13,7 +13,6 @@ class Ticket {
 private:
     Student student_;
     std::vector<UcClass> ucClasses_;
-    bool processed_;
     char type_; // a = add; d = delete; s = switch
 
 public:
@@ -25,7 +24,6 @@ public:
     const std::vector<UcClass> getUcClasses() const;
     const char& getType() const;
 
-    void setProcessed(bool processed);
 };
 
 
