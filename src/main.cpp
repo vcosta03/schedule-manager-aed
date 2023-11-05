@@ -6,6 +6,7 @@
 #include "UcClass.h"
 #include "Application.h"
 
+/** @file */
 
 int main(int argc, char* argv[]) {
     bool bypassLogin = false;
