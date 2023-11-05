@@ -77,6 +77,11 @@ $(function() {
   <div class="headertitle"><div class="title">Schedule Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Class to represent a schedule, used to display lesson information for UcClasses and Students.  
+ <a href="class_schedule.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_schedule_8h_source.html">Schedule.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -88,23 +93,55 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab0dd6d33e859ceedfaafafad1591ee3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af47f19e0168f24ce9a73710090f3d13a" id="r_af47f19e0168f24ce9a73710090f3d13a"><td class="memItemLeft" align="right" valign="top"><a id="af47f19e0168f24ce9a73710090f3d13a" name="af47f19e0168f24ce9a73710090f3d13a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>pushLesson</b> (const <a class="el" href="class_lesson.html">Lesson</a> &amp;lesson, char index)</td></tr>
+<tr class="memdesc:af47f19e0168f24ce9a73710090f3d13a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pushes a lesson to the correct list, sorted by start time. <br /></td></tr>
 <tr class="separator:af47f19e0168f24ce9a73710090f3d13a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac18f3486550a70cec42decda1158e5c5" id="r_ac18f3486550a70cec42decda1158e5c5"><td class="memItemLeft" align="right" valign="top"><a id="ac18f3486550a70cec42decda1158e5c5" name="ac18f3486550a70cec42decda1158e5c5"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>dayWeek</b> (int day) const</td></tr>
 <tr class="separator:ac18f3486550a70cec42decda1158e5c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8af767498d9048aba25aa1421262845f" id="r_a8af767498d9048aba25aa1421262845f"><td class="memItemLeft" align="right" valign="top"><a id="a8af767498d9048aba25aa1421262845f" name="a8af767498d9048aba25aa1421262845f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>printSchedule</b> (const int type)</td></tr>
-<tr class="separator:a8af767498d9048aba25aa1421262845f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefc3a39c6dd78ad3499bd38d16f90057" id="r_aefc3a39c6dd78ad3499bd38d16f90057"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_schedule.html#aefc3a39c6dd78ad3499bd38d16f90057">printSchedule</a> (int type)</td></tr>
+<tr class="memdesc:aefc3a39c6dd78ad3499bd38d16f90057"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the <a class="el" href="class_schedule.html" title="Class to represent a schedule, used to display lesson information for UcClasses and Students.">Schedule</a>.  <br /></td></tr>
+<tr class="separator:aefc3a39c6dd78ad3499bd38d16f90057"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:af164d1e48dedad90480b5b0e0de5753c" id="r_af164d1e48dedad90480b5b0e0de5753c"><td class="memItemLeft" align="right" valign="top"><a id="af164d1e48dedad90480b5b0e0de5753c" name="af164d1e48dedad90480b5b0e0de5753c"></a>
 std::vector&lt; <a class="el" href="class_uc_class.html">UcClass</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ucClasses_</b></td></tr>
+<tr class="memdesc:af164d1e48dedad90480b5b0e0de5753c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_schedule.html" title="Class to represent a schedule, used to display lesson information for UcClasses and Students.">Schedule</a>'s UcClasses, mainly useful for a <a class="el" href="class_student.html" title="Represents a student.">Student</a>. <br /></td></tr>
 <tr class="separator:af164d1e48dedad90480b5b0e0de5753c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a105d5d6e78fa1f3946cc6f8953049352" id="r_a105d5d6e78fa1f3946cc6f8953049352"><td class="memItemLeft" align="right" valign="top"><a id="a105d5d6e78fa1f3946cc6f8953049352" name="a105d5d6e78fa1f3946cc6f8953049352"></a>
 std::vector&lt; std::list&lt; std::pair&lt; char, <a class="el" href="class_lesson.html">Lesson</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>lessons_</b></td></tr>
+<tr class="memdesc:a105d5d6e78fa1f3946cc6f8953049352"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_schedule.html" title="Class to represent a schedule, used to display lesson information for UcClasses and Students.">Schedule</a>'s lessons organized in a vector with 5 lists, for each day of the week, sorted by time. <br /></td></tr>
 <tr class="separator:a105d5d6e78fa1f3946cc6f8953049352"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class to represent a schedule, used to display lesson information for UcClasses and Students. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aefc3a39c6dd78ad3499bd38d16f90057" name="aefc3a39c6dd78ad3499bd38d16f90057"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefc3a39c6dd78ad3499bd38d16f90057">&#9670;&#160;</a></span>printSchedule()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Schedule::printSchedule </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Displays the <a class="el" href="class_schedule.html" title="Class to represent a schedule, used to display lesson information for UcClasses and Students.">Schedule</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>should be 0 to print an <a class="el" href="class_uc_class.html" title="Represents a pair of an UC and a Class.">UcClass</a>'s <a class="el" href="class_schedule.html" title="Class to represent a schedule, used to display lesson information for UcClasses and Students.">Schedule</a> and 1 to print a <a class="el" href="class_student.html" title="Represents a student.">Student</a>'s <a class="el" href="class_schedule.html" title="Class to represent a schedule, used to display lesson information for UcClasses and Students.">Schedule</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/vascocosta/Documents/inf2324/aed/AEDproject/src/<a class="el" href="_schedule_8h_source.html">Schedule.h</a></li>
 <li>/home/vascocosta/Documents/inf2324/aed/AEDproject/src/<b>Schedule.cpp</b></li>

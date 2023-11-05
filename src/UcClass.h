@@ -10,12 +10,15 @@
 #include <vector>
 #include "Lesson.h"
 
+/**
+ * @brief Represents a pair of an UC and a Class.
+ */
+
 class UcClass {
 private:
     std::string ucId_;
     std::string classId_;
     std::vector<Lesson> lessons_;
-
 
 public:
 

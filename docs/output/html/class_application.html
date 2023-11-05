@@ -78,109 +78,292 @@ $(function() {
   <div class="headertitle"><div class="title">Application Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Core program class for data management and user interaction.  
+ <a href="class_application.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_application_8h_source.html">Application.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ade05999e2a9ceb899e20f0f47dae457c" id="r_ade05999e2a9ceb899e20f0f47dae457c"><td class="memItemLeft" align="right" valign="top"><a id="ade05999e2a9ceb899e20f0f47dae457c" name="ade05999e2a9ceb899e20f0f47dae457c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>readFiles</b> (const std::string &amp;file1, const std::string &amp;file2, const std::string &amp;file3, const std::string &amp;file4)</td></tr>
-<tr class="separator:ade05999e2a9ceb899e20f0f47dae457c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa8cc05ce6b6092be5ecdfdae44e05f8" id="r_afa8cc05ce6b6092be5ecdfdae44e05f8"><td class="memItemLeft" align="right" valign="top"><a id="afa8cc05ce6b6092be5ecdfdae44e05f8" name="afa8cc05ce6b6092be5ecdfdae44e05f8"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Application</b> ()</td></tr>
+<tr class="memdesc:afa8cc05ce6b6092be5ecdfdae44e05f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
+<tr class="separator:afa8cc05ce6b6092be5ecdfdae44e05f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ca4124b115b0b1b3e2b2acafd0dc3ba" id="r_a0ca4124b115b0b1b3e2b2acafd0dc3ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#a0ca4124b115b0b1b3e2b2acafd0dc3ba">readFiles</a> (const std::string &amp;file1, const std::string &amp;file2, const std::string &amp;file3, const std::string &amp;file4, const std::string &amp;file5)</td></tr>
+<tr class="memdesc:a0ca4124b115b0b1b3e2b2acafd0dc3ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads and parses data provided in the CSV's.  <br /></td></tr>
+<tr class="separator:a0ca4124b115b0b1b3e2b2acafd0dc3ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abfbc1dab4aad056a517b19d8332e046f" id="r_abfbc1dab4aad056a517b19d8332e046f"><td class="memItemLeft" align="right" valign="top"><a id="abfbc1dab4aad056a517b19d8332e046f" name="abfbc1dab4aad056a517b19d8332e046f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>writeLog</b> (const std::string &amp;file1)</td></tr>
+<tr class="memdesc:abfbc1dab4aad056a517b19d8332e046f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the system changes to a CSV. <br /></td></tr>
 <tr class="separator:abfbc1dab4aad056a517b19d8332e046f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79b08f28cc6b3cc777f0f54fd3ee7df0" id="r_a79b08f28cc6b3cc777f0f54fd3ee7df0"><td class="memItemLeft" align="right" valign="top"><a id="a79b08f28cc6b3cc777f0f54fd3ee7df0" name="a79b08f28cc6b3cc777f0f54fd3ee7df0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>writeTickets</b> (const std::string file)</td></tr>
+<tr class="memdesc:a79b08f28cc6b3cc777f0f54fd3ee7df0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the tickets yet to be processed data to a CSV. <br /></td></tr>
+<tr class="separator:a79b08f28cc6b3cc777f0f54fd3ee7df0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ab37404251ad13fa6d04eb6ee702f28" id="r_a4ab37404251ad13fa6d04eb6ee702f28"><td class="memItemLeft" align="right" valign="top"><a id="a4ab37404251ad13fa6d04eb6ee702f28" name="a4ab37404251ad13fa6d04eb6ee702f28"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>schedules</b> () const</td></tr>
+<tr class="memdesc:a4ab37404251ad13fa6d04eb6ee702f28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the <a class="el" href="class_schedule.html" title="Class to represent a schedule, used to display lesson information for UcClasses and Students.">Schedule</a> menu and directs the program flow to submenus. <br /></td></tr>
 <tr class="separator:a4ab37404251ad13fa6d04eb6ee702f28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a406e3a36c30eb04a8757f35b95f55556" id="r_a406e3a36c30eb04a8757f35b95f55556"><td class="memItemLeft" align="right" valign="top"><a id="a406e3a36c30eb04a8757f35b95f55556" name="a406e3a36c30eb04a8757f35b95f55556"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>schedulesPerUc</b> () const</td></tr>
+<tr class="memdesc:a406e3a36c30eb04a8757f35b95f55556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the schedule for a specific <a class="el" href="class_uc_class.html" title="Represents a pair of an UC and a Class.">UcClass</a>. <br /></td></tr>
 <tr class="separator:a406e3a36c30eb04a8757f35b95f55556"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3573b48ca4b4810697f6d417fa5d7d9b" id="r_a3573b48ca4b4810697f6d417fa5d7d9b"><td class="memItemLeft" align="right" valign="top"><a id="a3573b48ca4b4810697f6d417fa5d7d9b" name="a3573b48ca4b4810697f6d417fa5d7d9b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>schedulesPerStudent</b> () const</td></tr>
+<tr class="memdesc:a3573b48ca4b4810697f6d417fa5d7d9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the schedule for a specific <a class="el" href="class_student.html" title="Represents a student.">Student</a>. <br /></td></tr>
 <tr class="separator:a3573b48ca4b4810697f6d417fa5d7d9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c116b902089b7af0d0edd258e2b5339" id="r_a5c116b902089b7af0d0edd258e2b5339"><td class="memItemLeft" align="right" valign="top"><a id="a5c116b902089b7af0d0edd258e2b5339" name="a5c116b902089b7af0d0edd258e2b5339"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>students</b> ()</td></tr>
+<tr class="memdesc:a5c116b902089b7af0d0edd258e2b5339"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the <a class="el" href="class_student.html" title="Represents a student.">Student</a> menu and directs the program flow to submenus. <br /></td></tr>
 <tr class="separator:a5c116b902089b7af0d0edd258e2b5339"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0522291008f32ea98351db586e631813" id="r_a0522291008f32ea98351db586e631813"><td class="memItemLeft" align="right" valign="top"><a id="a0522291008f32ea98351db586e631813" name="a0522291008f32ea98351db586e631813"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>studentsListing</b> ()</td></tr>
+<tr class="memdesc:a0522291008f32ea98351db586e631813"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lists and sorts the students, allowing different sorting option. <br /></td></tr>
 <tr class="separator:a0522291008f32ea98351db586e631813"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68f0313ceba85f829ea7bb46ce8bca1f" id="r_a68f0313ceba85f829ea7bb46ce8bca1f"><td class="memItemLeft" align="right" valign="top"><a id="a68f0313ceba85f829ea7bb46ce8bca1f" name="a68f0313ceba85f829ea7bb46ce8bca1f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>studentsSearch</b> ()</td></tr>
+<tr class="memdesc:a68f0313ceba85f829ea7bb46ce8bca1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches a specific student. <br /></td></tr>
 <tr class="separator:a68f0313ceba85f829ea7bb46ce8bca1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cb8d06b1b061a83965976205b4c18b5" id="r_a7cb8d06b1b061a83965976205b4c18b5"><td class="memItemLeft" align="right" valign="top"><a id="a7cb8d06b1b061a83965976205b4c18b5" name="a7cb8d06b1b061a83965976205b4c18b5"></a>
-std::list&lt; <a class="el" href="class_student.html">Student</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>studentsSort</b> (bool ascending, bool(*comparator)(const <a class="el" href="class_student.html">Student</a> &amp;a, const <a class="el" href="class_student.html">Student</a> &amp;b))</td></tr>
+<tr class="memitem:a7cb8d06b1b061a83965976205b4c18b5" id="r_a7cb8d06b1b061a83965976205b4c18b5"><td class="memItemLeft" align="right" valign="top">std::list&lt; <a class="el" href="class_student.html">Student</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#a7cb8d06b1b061a83965976205b4c18b5">studentsSort</a> (bool ascending, bool(*comparator)(const <a class="el" href="class_student.html">Student</a> &amp;a, const <a class="el" href="class_student.html">Student</a> &amp;b))</td></tr>
+<tr class="memdesc:a7cb8d06b1b061a83965976205b4c18b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a sorted list out of the registered students using custom comparators.  <br /></td></tr>
 <tr class="separator:a7cb8d06b1b061a83965976205b4c18b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a447c9cb978f8f7bd66483f1003112b74" id="r_a447c9cb978f8f7bd66483f1003112b74"><td class="memItemLeft" align="right" valign="top"><a id="a447c9cb978f8f7bd66483f1003112b74" name="a447c9cb978f8f7bd66483f1003112b74"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>getOrderAndSize</b> (bool &amp;order, int &amp;size) const</td></tr>
+<tr class="memdesc:a447c9cb978f8f7bd66483f1003112b74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves user input for sorting order and the number of students to display, ensuring data validity. <br /></td></tr>
 <tr class="separator:a447c9cb978f8f7bd66483f1003112b74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86e79398696b21c77c3b58ca75b74b2f" id="r_a86e79398696b21c77c3b58ca75b74b2f"><td class="memItemLeft" align="right" valign="top"><a id="a86e79398696b21c77c3b58ca75b74b2f" name="a86e79398696b21c77c3b58ca75b74b2f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>tickets</b> ()</td></tr>
+<tr class="memdesc:a86e79398696b21c77c3b58ca75b74b2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays ticket menu and allows users to create tickets related to schedule changes. <br /></td></tr>
 <tr class="separator:a86e79398696b21c77c3b58ca75b74b2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6edd6428e14cc26e25b7e7175dc4de40" id="r_a6edd6428e14cc26e25b7e7175dc4de40"><td class="memItemLeft" align="right" valign="top"><a id="a6edd6428e14cc26e25b7e7175dc4de40" name="a6edd6428e14cc26e25b7e7175dc4de40"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>ticketHandling</b> ()</td></tr>
+<tr class="memdesc:a6edd6428e14cc26e25b7e7175dc4de40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays ticket management menu and is responsible for managing new and processed tickets. <br /></td></tr>
 <tr class="separator:a6edd6428e14cc26e25b7e7175dc4de40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840b4b209ebf90ecfcb12609307b56ea" id="r_a840b4b209ebf90ecfcb12609307b56ea"><td class="memItemLeft" align="right" valign="top"><a id="a840b4b209ebf90ecfcb12609307b56ea" name="a840b4b209ebf90ecfcb12609307b56ea"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>processTicket</b> (<a class="el" href="class_ticket.html">Ticket</a> &amp;ticket)</td></tr>
+<tr class="memdesc:a840b4b209ebf90ecfcb12609307b56ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes student tickets for enrollment, withdrawal, and class switching. <br /></td></tr>
 <tr class="separator:a840b4b209ebf90ecfcb12609307b56ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34c7c6fec4804ce6d8bb8843aa246f13" id="r_a34c7c6fec4804ce6d8bb8843aa246f13"><td class="memItemLeft" align="right" valign="top"><a id="a34c7c6fec4804ce6d8bb8843aa246f13" name="a34c7c6fec4804ce6d8bb8843aa246f13"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>undoTickets</b> ()</td></tr>
+<tr class="memdesc:a34c7c6fec4804ce6d8bb8843aa246f13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables processed tickets to be reversed. <br /></td></tr>
 <tr class="separator:a34c7c6fec4804ce6d8bb8843aa246f13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a494cfe5a45fe2e7d7cfbfcf2133242b0" id="r_a494cfe5a45fe2e7d7cfbfcf2133242b0"><td class="memItemLeft" align="right" valign="top"><a id="a494cfe5a45fe2e7d7cfbfcf2133242b0" name="a494cfe5a45fe2e7d7cfbfcf2133242b0"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>classBalanceDisturbed</b> (int numStudents, const <a class="el" href="class_uc_class.html">UcClass</a> &amp;ucClassTo) const</td></tr>
+<tr class="memdesc:a494cfe5a45fe2e7d7cfbfcf2133242b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks class balance for potential disturbance when altering student count in a class. <br /></td></tr>
 <tr class="separator:a494cfe5a45fe2e7d7cfbfcf2133242b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a3488abc7aeeef5dbe274e2b54ddcef" id="r_a4a3488abc7aeeef5dbe274e2b54ddcef"><td class="memItemLeft" align="right" valign="top"><a id="a4a3488abc7aeeef5dbe274e2b54ddcef" name="a4a3488abc7aeeef5dbe274e2b54ddcef"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>checkOverlapping</b> (const <a class="el" href="class_student.html">Student</a> &amp;student, const <a class="el" href="class_uc_class.html">UcClass</a> &amp;ucClass) const</td></tr>
+<tr class="memitem:a4a3488abc7aeeef5dbe274e2b54ddcef" id="r_a4a3488abc7aeeef5dbe274e2b54ddcef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#a4a3488abc7aeeef5dbe274e2b54ddcef">checkOverlapping</a> (const <a class="el" href="class_student.html">Student</a> &amp;student, const <a class="el" href="class_uc_class.html">UcClass</a> &amp;ucClass) const</td></tr>
+<tr class="memdesc:a4a3488abc7aeeef5dbe274e2b54ddcef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks for potential schedule overlap when adding a new class to a student's schedule.  <br /></td></tr>
 <tr class="separator:a4a3488abc7aeeef5dbe274e2b54ddcef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27c660593898722b3284298b1846e87c" id="r_a27c660593898722b3284298b1846e87c"><td class="memItemLeft" align="right" valign="top"><a id="a27c660593898722b3284298b1846e87c" name="a27c660593898722b3284298b1846e87c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>ucInfo</b> () const</td></tr>
+<tr class="memdesc:a27c660593898722b3284298b1846e87c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays and manages information for a specific UC. <br /></td></tr>
 <tr class="separator:a27c660593898722b3284298b1846e87c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae38848f92f0dd14e0344ce27c7987918" id="r_ae38848f92f0dd14e0344ce27c7987918"><td class="memItemLeft" align="right" valign="top"><a id="ae38848f92f0dd14e0344ce27c7987918" name="ae38848f92f0dd14e0344ce27c7987918"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>classInfo</b> (const std::string &amp;ucClass) const</td></tr>
+<tr class="memdesc:ae38848f92f0dd14e0344ce27c7987918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays and manages information for a specific Class. <br /></td></tr>
 <tr class="separator:ae38848f92f0dd14e0344ce27c7987918"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a271addfc08c99b735763687b26e21312" id="r_a271addfc08c99b735763687b26e21312"><td class="memItemLeft" align="right" valign="top"><a id="a271addfc08c99b735763687b26e21312" name="a271addfc08c99b735763687b26e21312"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>sysLog</b> ()</td></tr>
+<tr class="memdesc:a271addfc08c99b735763687b26e21312"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the changes made to the system. <br /></td></tr>
 <tr class="separator:a271addfc08c99b735763687b26e21312"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f9773a59ccc7ad0518788bea6a480d4" id="r_a7f9773a59ccc7ad0518788bea6a480d4"><td class="memItemLeft" align="right" valign="top"><a id="a7f9773a59ccc7ad0518788bea6a480d4" name="a7f9773a59ccc7ad0518788bea6a480d4"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>dayStrToInt</b> (const std::string &amp;day)</td></tr>
+<tr class="memdesc:a7f9773a59ccc7ad0518788bea6a480d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a day string to an integer (0-4) for schedule management. <br /></td></tr>
 <tr class="separator:a7f9773a59ccc7ad0518788bea6a480d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adff1807b7d553f50211f737a6cadca0d" id="r_adff1807b7d553f50211f737a6cadca0d"><td class="memItemLeft" align="right" valign="top"><a id="adff1807b7d553f50211f737a6cadca0d" name="adff1807b7d553f50211f737a6cadca0d"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>ucClassExists</b> (<a class="el" href="class_uc_class.html">UcClass</a> &amp;ucClass) const</td></tr>
+<tr class="memdesc:adff1807b7d553f50211f737a6cadca0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a <a class="el" href="class_uc_class.html" title="Represents a pair of an UC and a Class.">UcClass</a> exists and if so updates the value. <br /></td></tr>
 <tr class="separator:adff1807b7d553f50211f737a6cadca0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a780122b98926e45f74963a892353f896" id="r_a780122b98926e45f74963a892353f896"><td class="memItemLeft" align="right" valign="top"><a id="a780122b98926e45f74963a892353f896" name="a780122b98926e45f74963a892353f896"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>studentExists</b> (<a class="el" href="class_student.html">Student</a> &amp;student) const</td></tr>
+<tr class="memdesc:a780122b98926e45f74963a892353f896"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a student exists and if so updates the value. <br /></td></tr>
 <tr class="separator:a780122b98926e45f74963a892353f896"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a01dbf5835317c34b42dabfa1d70ed92c" id="r_a01dbf5835317c34b42dabfa1d70ed92c"><td class="memItemLeft" align="right" valign="top"><a id="a01dbf5835317c34b42dabfa1d70ed92c" name="a01dbf5835317c34b42dabfa1d70ed92c"></a>
 static bool&#160;</td><td class="memItemRight" valign="bottom"><b>compareStudentsByNameAscending</b> (const <a class="el" href="class_student.html">Student</a> &amp;student1, const <a class="el" href="class_student.html">Student</a> &amp;student2)</td></tr>
+<tr class="memdesc:a01dbf5835317c34b42dabfa1d70ed92c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two students by name in ascending order. <br /></td></tr>
 <tr class="separator:a01dbf5835317c34b42dabfa1d70ed92c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a611de9c6c5c0d16172b940c8fcbea2e6" id="r_a611de9c6c5c0d16172b940c8fcbea2e6"><td class="memItemLeft" align="right" valign="top"><a id="a611de9c6c5c0d16172b940c8fcbea2e6" name="a611de9c6c5c0d16172b940c8fcbea2e6"></a>
 static bool&#160;</td><td class="memItemRight" valign="bottom"><b>compareStudentsByIdAscending</b> (const <a class="el" href="class_student.html">Student</a> &amp;student1, const <a class="el" href="class_student.html">Student</a> &amp;student2)</td></tr>
+<tr class="memdesc:a611de9c6c5c0d16172b940c8fcbea2e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two students by id in ascending order. <br /></td></tr>
 <tr class="separator:a611de9c6c5c0d16172b940c8fcbea2e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3809b2089ec7d4a27a0d5ce9735c09e3" id="r_a3809b2089ec7d4a27a0d5ce9735c09e3"><td class="memItemLeft" align="right" valign="top"><a id="a3809b2089ec7d4a27a0d5ce9735c09e3" name="a3809b2089ec7d4a27a0d5ce9735c09e3"></a>
 static bool&#160;</td><td class="memItemRight" valign="bottom"><b>compareStudentsByYearAscending</b> (const <a class="el" href="class_student.html">Student</a> &amp;student1, const <a class="el" href="class_student.html">Student</a> &amp;student2)</td></tr>
+<tr class="memdesc:a3809b2089ec7d4a27a0d5ce9735c09e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two students by curricular year in ascending order. <br /></td></tr>
 <tr class="separator:a3809b2089ec7d4a27a0d5ce9735c09e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f75dc7ff0a54cca638d28281e4fedd9" id="r_a0f75dc7ff0a54cca638d28281e4fedd9"><td class="memItemLeft" align="right" valign="top"><a id="a0f75dc7ff0a54cca638d28281e4fedd9" name="a0f75dc7ff0a54cca638d28281e4fedd9"></a>
 static bool&#160;</td><td class="memItemRight" valign="bottom"><b>compareStudentsByUcsAscending</b> (const <a class="el" href="class_student.html">Student</a> &amp;student1, const <a class="el" href="class_student.html">Student</a> &amp;student2)</td></tr>
+<tr class="memdesc:a0f75dc7ff0a54cca638d28281e4fedd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two students by number of UC's in ascending order. <br /></td></tr>
 <tr class="separator:a0f75dc7ff0a54cca638d28281e4fedd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a44a3454b957861a1b8d41049848d9e72" id="r_a44a3454b957861a1b8d41049848d9e72"><td class="memItemLeft" align="right" valign="top"><a id="a44a3454b957861a1b8d41049848d9e72" name="a44a3454b957861a1b8d41049848d9e72"></a>
 std::vector&lt; <a class="el" href="class_uc_class.html">UcClass</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ucClasses_</b></td></tr>
+<tr class="memdesc:a44a3454b957861a1b8d41049848d9e72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Every <a class="el" href="class_uc_class.html" title="Represents a pair of an UC and a Class.">UcClass</a> in LEIC. <br /></td></tr>
 <tr class="separator:a44a3454b957861a1b8d41049848d9e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acffcbca925872b3ab4f1b415388a986a" id="r_acffcbca925872b3ab4f1b415388a986a"><td class="memItemLeft" align="right" valign="top"><a id="acffcbca925872b3ab4f1b415388a986a" name="acffcbca925872b3ab4f1b415388a986a"></a>
 std::set&lt; <a class="el" href="class_student.html">Student</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>students_</b></td></tr>
+<tr class="memdesc:acffcbca925872b3ab4f1b415388a986a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registered students in LEIC. <br /></td></tr>
 <tr class="separator:acffcbca925872b3ab4f1b415388a986a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac87621b75cbc1012a66181e8923544e4" id="r_ac87621b75cbc1012a66181e8923544e4"><td class="memItemLeft" align="right" valign="top"><a id="ac87621b75cbc1012a66181e8923544e4" name="ac87621b75cbc1012a66181e8923544e4"></a>
 std::queue&lt; <a class="el" href="class_ticket.html">Ticket</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>tickets_</b></td></tr>
+<tr class="memdesc:ac87621b75cbc1012a66181e8923544e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tickets to be processed. <br /></td></tr>
 <tr class="separator:ac87621b75cbc1012a66181e8923544e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41bcf02f7916b314425bc15910538700" id="r_a41bcf02f7916b314425bc15910538700"><td class="memItemLeft" align="right" valign="top"><a id="a41bcf02f7916b314425bc15910538700" name="a41bcf02f7916b314425bc15910538700"></a>
 std::list&lt; <a class="el" href="class_ticket.html">Ticket</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>processedTickets_</b></td></tr>
+<tr class="memdesc:a41bcf02f7916b314425bc15910538700"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tickets that have been processed and can be reversed. <br /></td></tr>
 <tr class="separator:a41bcf02f7916b314425bc15910538700"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa41cfd3da73ca3e0a83e19265a3f8683" id="r_aa41cfd3da73ca3e0a83e19265a3f8683"><td class="memItemLeft" align="right" valign="top"><a id="aa41cfd3da73ca3e0a83e19265a3f8683" name="aa41cfd3da73ca3e0a83e19265a3f8683"></a>
 std::map&lt; <a class="el" href="class_uc_class.html">UcClass</a>, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>occupancy_</b></td></tr>
+<tr class="memdesc:aa41cfd3da73ca3e0a83e19265a3f8683"><td class="mdescLeft">&#160;</td><td class="mdescRight">Occupancy per <a class="el" href="class_uc_class.html" title="Represents a pair of an UC and a Class.">UcClass</a>. <br /></td></tr>
 <tr class="separator:aa41cfd3da73ca3e0a83e19265a3f8683"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Core program class for data management and user interaction. </p>
+<p>This is the core class of the program, responsible for managing various data structures and functionalities. It facilitates user interaction through submenus, enabling data manipulation, as well as reading and writing data to CSV files. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4a3488abc7aeeef5dbe274e2b54ddcef" name="a4a3488abc7aeeef5dbe274e2b54ddcef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a3488abc7aeeef5dbe274e2b54ddcef">&#9670;&#160;</a></span>checkOverlapping()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Application::checkOverlapping </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_student.html">Student</a> &amp;&#160;</td>
+          <td class="paramname"><em>student</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_uc_class.html">UcClass</a> &amp;&#160;</td>
+          <td class="paramname"><em>ucClass</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks for potential schedule overlap when adding a new class to a student's schedule. </p>
+<p>Checks if a new class' schedule is overlapping with the current student's schedule.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">student</td><td>The student for whom the schedule overlap is checked. </td></tr>
+    <tr><td class="paramname">ucClass</td><td>The <a class="el" href="class_uc_class.html" title="Represents a pair of an UC and a Class.">UcClass</a> with a potential new schedule. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if an overlap is detected.</dd></dl>
+<p>Time Complexity: O(n³), where n is the total number of lessons between the student and the <a class="el" href="class_uc_class.html" title="Represents a pair of an UC and a Class.">UcClass</a>. </p>
+
+</div>
+</div>
+<a id="a0ca4124b115b0b1b3e2b2acafd0dc3ba" name="a0ca4124b115b0b1b3e2b2acafd0dc3ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ca4124b115b0b1b3e2b2acafd0dc3ba">&#9670;&#160;</a></span>readFiles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Application::readFiles </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file4</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file5</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reads and parses data provided in the CSV's. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file1</td><td>should be classes_per_uc.csv </td></tr>
+    <tr><td class="paramname">file2</td><td>should be classes.csv </td></tr>
+    <tr><td class="paramname">file3</td><td>should be students_classes.csv </td></tr>
+    <tr><td class="paramname">file4</td><td>should be syslog.csv </td></tr>
+    <tr><td class="paramname">file5</td><td>should be tickets.csv</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7cb8d06b1b061a83965976205b4c18b5" name="a7cb8d06b1b061a83965976205b4c18b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cb8d06b1b061a83965976205b4c18b5">&#9670;&#160;</a></span>studentsSort()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::list&lt; <a class="el" href="class_student.html">Student</a> &gt; Application::studentsSort </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>ascending</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool(*)(const <a class="el" href="class_student.html">Student</a> &amp;a, const <a class="el" href="class_student.html">Student</a> &amp;b)&#160;</td>
+          <td class="paramname"><em>comparator</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a sorted list out of the registered students using custom comparators. </p>
+<p>Sorts the registered students using the provided comparator function and returns a sorted list of students.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ascending</td><td>True if sorting should be in ascending order; False for descending order. </td></tr>
+    <tr><td class="paramname">comparator</td><td>A function pointer for custom sorting criteria. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A sorted list of students.</dd></dl>
+<p>Time Complexity: O(n * log(n)) where n is the number of registered students. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/vascocosta/Documents/inf2324/aed/AEDproject/src/<a class="el" href="_application_8h_source.html">Application.h</a></li>
 <li>/home/vascocosta/Documents/inf2324/aed/AEDproject/src/<b>Application.cpp</b></li>

@@ -7,6 +7,10 @@
 
 #include <string>
 
+/**
+ * @brief Represents a lesson of an UcClass.
+ */
+
 class Lesson {
 private:
     int weekday_;

@@ -14,8 +14,8 @@ Ticket::Ticket(Student &student, const char& type, const UcClass& ucClass) {
 
 Ticket::Ticket(Student &student,const char& type, const UcClass &from, const UcClass &to) {
     student_ = student;
-    ucClasses_.push_back(from); //ucClasses[0] = from
-    ucClasses_.push_back(to); //ucClasses[1] = to
+    ucClasses_.push_back(from);
+    ucClasses_.push_back(to);
     type_ = type;
 }
 

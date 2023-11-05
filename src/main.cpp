@@ -6,12 +6,14 @@
 #include "UcClass.h"
 #include "Application.h"
 
-/** @file */
+/** @file
+ *  @brief Entry point of the application, responsible for the program flow.
+ *
+*/
+
 
 int main(int argc, char* argv[]) {
     bool bypassLogin = false;
-
-//    "-a" flag para entrar automaticamente como admin
 
     for (int i = 0; i < argc; i++) {
         if (std::string(argv[i]) == "-a") {
@@ -30,7 +32,7 @@ int main(int argc, char* argv[]) {
 
     if (auth.isLogged() || bypassLogin) {
         Application app;
-        app.readFiles("../csvdata/classes_per_uc.csv", "../csvdata/classes.csv", "../csvdata/students_classes.csv", "../csvdata/syslog.csv");
+        app.readFiles("../csvdata/classes_per_uc.csv", "../csvdata/classes.csv", "../csvdata/students_classes.csv", "../csvdata/syslog.csv", "../csvdata/tickets.csv");
 
 
         std::string option;
@@ -102,6 +104,7 @@ int main(int argc, char* argv[]) {
         }
 
         app.writeLog("../csvdata/syslog.csv");
+        app.writeTickets("../csvdata/tickets.csv");
     }
 
 

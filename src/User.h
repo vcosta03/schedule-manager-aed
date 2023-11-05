@@ -8,6 +8,10 @@
 #include <stdio.h>
 #include <iostream>
 
+/**
+ * @brief Represents an User.
+ */
+
 class User {
 private:
     std::string username_;

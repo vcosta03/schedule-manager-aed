@@ -14,24 +14,34 @@
 
 Application::Application() = default;
 
-void Application::readFiles(const std::string& file1, const std::string& file2, const std::string& file3, const std::string& file4) {
-    std::ifstream f1(file1); //should be classes_per_uc.csv
-    std::ifstream f2(file2); //should be classes.csv
-    std::ifstream f3(file3); //should be students_classes.csv
-    std::ifstream f4(file4); //should be syslog.csv
+void Application::readFiles(const std::string& file1, const std::string& file2, const std::string& file3, const std::string& file4, const std::string& file5) {
+    /**
+     * @param file1 should be classes_per_uc.csv
+     * @param file2 should be classes.csv
+     * @param file3 should be students_classes.csv
+     * @param file4 should be syslog.csv
+     * @param file5 should be tickets.csv
+     */
+
+    std::ifstream f1(file1);
+    std::ifstream f2(file2);
+    std::ifstream f3(file3);
+    std::ifstream f4(file4);
+    std::ifstream f5(file5);
 
     std::vector<std::vector<std::string>> data1, data2;
-    std::string line1, line2, line3, line4;
+    std::string line1, line2, line3, line4, line5;
 
 
-    // ignore header
+
     std::getline(f1, line1);
     std::getline(f2, line2);
     std::getline(f3, line3);
     std::getline(f4, line4);
+    std::getline(f5, line5);
 
 
-    if (!f1.is_open() || !f2.is_open() || !f3.is_open() || !f4.is_open()) {
+    if (!f1.is_open() || !f2.is_open() || !f3.is_open() || !f4.is_open() || !f5.is_open()) {
         std::cerr << "Failed to open a CSV file." << std::endl;
     }
 
@@ -153,6 +163,53 @@ void Application::readFiles(const std::string& file1, const std::string& file2, 
                     Ticket currTicket(currStudent, typeChar, ucClassTo);
                     processTicket(currTicket);
                     processedTickets_.push_back(currTicket);
+                }
+
+                else
+                    std::cerr << "Invalid line in the CSV.";
+            }
+
+            else
+                std::cerr << "Invalid line in the CSV.";
+        }
+    }
+
+    while (std::getline(f5, line5)) {
+        std::istringstream s5(line5);
+        std::string studentCode, type, ucCodeFrom, classCodeFrom, ucCodeTo, classCodeTo;
+        Student currStudent;
+
+        if (std::getline(s5, studentCode, ',') &&
+            std::getline(s5, type, ',') &&
+            std::getline(s5, ucCodeFrom, ',') &&
+            std::getline(s5, classCodeFrom, ',') &&
+            std::getline(s5, ucCodeTo, ',') &&
+            std::getline(s5, classCodeTo)) {
+
+
+
+            if (type == "s") {
+                currStudent.setCode(studentCode);
+                UcClass ucClassFrom(ucCodeFrom, classCodeFrom), ucClassTo(ucCodeTo, classCodeTo);
+
+                if (studentExists(currStudent) && ucClassExists(ucClassFrom) && ucClassExists(ucClassTo)) {
+                    Ticket currTicket(currStudent, 's', ucClassFrom, ucClassTo);
+                    tickets_.push(currTicket);
+                }
+
+                else
+                    std::cerr << "Invalid line in the CSV.";
+
+            }
+
+            else if (type == "a" || type == "d") {
+                currStudent.setCode(studentCode);
+                UcClass ucClassTo(ucCodeTo, classCodeTo);
+                char typeChar = (type == "a" ? 'a' : 'd');
+
+                if (studentExists(currStudent) && ucClassExists(ucClassTo)) {
+                    Ticket currTicket(currStudent, typeChar, ucClassTo);
+                    tickets_.push(currTicket);
                 }
 
                 else
@@ -482,6 +539,19 @@ bool Application::compareStudentsByUcsAscending(const Student& student1, const S
     return student1.getUcsEnrolled() < student2.getUcsEnrolled();
 }
 
+/**
+ * @brief Creates a sorted list out of the registered students using custom comparators.
+ *
+ * Sorts the registered students using the provided comparator function and returns a sorted list of students.
+ *
+ * @param ascending True if sorting should be in ascending order; False for descending order.
+ * @param comparator A function pointer for custom sorting criteria.
+ * @return A sorted list of students.
+ *
+ * Time Complexity: O(n * log(n)) where n is the number of registered students.
+ *
+ */
+
 std::list<Student> Application::studentsSort(bool ascending, bool (*comparator)(const Student& a, const Student& b)) {
     std::list<Student> sortedStudents(students_.begin(), students_.end());
     sortedStudents.sort(comparator);
@@ -804,7 +874,7 @@ bool Application::studentExists(Student &student) const {
 void Application::ticketHandling() {
     std::string option;
 
-    std::cout << "\n-----------Ticket Management-----------\n\n"; //40 chars
+    std::cout << "\n------------Ticket Management-----------\n\n"; //40 chars
     std::cout << "\t1. Check next ticket in queue\n";
     std::cout << "\t2. Process every ticket\n";
     std::cout << "\t3. Process next ticket in queue\n";
@@ -1266,18 +1336,6 @@ void Application::classInfo(const std::string& ucCode) const {
 }
 
 bool Application::processTicket(Ticket &ticket) {
-    /*
-     * se type = a; checkar o balance da ocupação das turmas, checkar se o horario nao fica com cadeiras overlapping, checkar
-     *              se o numero de estudantes na turma nao fica acima do CAP, num UCS do estudante <= 7, dar update a ocupacao
-     *              e dar update ao student no set
-     *
-     * se type = d; eliminar se estudante tiver inscrito na turma, dar update à ocupação, update ao student no
-     *
-     * se type = s; checkar tudo que checkamos no add, menos num UCS (fica igual), dar update a ocupacao e dar update ao student no set
-     *
-     * quando e processado, adicionar a list de processados
-     */
-
     switch (ticket.getType()) {
         case 'd': {
             std::list<UcClass> currUcClasses;
@@ -1440,6 +1498,18 @@ bool Application::classBalanceDisturbed(int numStudents, const UcClass &ucClassT
     return false;
 }
 
+/**
+ * @brief Checks for potential schedule overlap when adding a new class to a student's schedule.
+ *
+ * Checks if a new class' schedule is overlapping with the current student's schedule.
+ *
+ * @param student The student for whom the schedule overlap is checked.
+ * @param ucClass The UcClass with a potential new schedule.
+ * @return True if an overlap is detected.
+ *
+ * Time Complexity: O(n³), where n is the total number of lessons between the student and the UcClass.
+ *
+ */
 bool Application::checkOverlapping(const Student &student, const UcClass &ucClass) const {
     for (const auto& studentUc : student.getUcClasses()) {
         for (const auto& studentLesson : studentUc.getLessons()) {
@@ -1615,6 +1685,40 @@ void Application::writeLog(const std::string &file1) {
                  << ticket.getUcClasses()[1].getUcId() << ','
                  << ticket.getUcClasses()[1].getClassId() << '\n';
         }
+    }
+
+    file.close();
+}
+
+void Application::writeTickets(const std::string file1) {
+    std::ofstream file(file1);
+
+    if (!file.is_open()) {
+        std::cerr << "Failed to open the CSV file for writing." << std::endl;
+        return;
+    }
+
+    file << "StudentCode,Type,UcCodeFrom,ClassCodeFrom,UcCodeTo,ClassCodeTo\n";
+
+    while (!tickets_.empty()) {
+        Ticket ticket = tickets_.front();
+
+        file << ticket.getStudent().getStudentCode() << ","
+             << ticket.getType() << ",";
+
+        if (ticket.getType() == 'a' || ticket.getType() == 'd') {
+            file << "0,0," << ticket.getUcClasses()[0].getUcId() << ','
+                 << ticket.getUcClasses()[0].getClassId() << '\n';
+        }
+
+        else {
+            file << ticket.getUcClasses()[0].getUcId() << ','
+                 << ticket.getUcClasses()[0].getClassId() << ','
+                 << ticket.getUcClasses()[1].getUcId() << ','
+                 << ticket.getUcClasses()[1].getClassId() << '\n';
+        }
+
+        tickets_.pop();
     }
 
     file.close();

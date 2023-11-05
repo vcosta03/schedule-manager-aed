@@ -77,14 +77,17 @@ $(function() {
   <div class="headertitle"><div class="title">Ticket Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Represents a ticket for schedule changes.  
+ <a href="class_ticket.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_ticket_8h_source.html">Ticket.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a006dc686db2fc952d8ea1d8a051e624e" id="r_a006dc686db2fc952d8ea1d8a051e624e"><td class="memItemLeft" align="right" valign="top"><a id="a006dc686db2fc952d8ea1d8a051e624e" name="a006dc686db2fc952d8ea1d8a051e624e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Ticket</b> (<a class="el" href="class_student.html">Student</a> &amp;student, const char &amp;type, const <a class="el" href="class_uc_class.html">UcClass</a> &amp;ucClass)</td></tr>
+<tr class="memitem:a006dc686db2fc952d8ea1d8a051e624e" id="r_a006dc686db2fc952d8ea1d8a051e624e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ticket.html#a006dc686db2fc952d8ea1d8a051e624e">Ticket</a> (<a class="el" href="class_student.html">Student</a> &amp;student, const char &amp;type, const <a class="el" href="class_uc_class.html">UcClass</a> &amp;ucClass)</td></tr>
 <tr class="separator:a006dc686db2fc952d8ea1d8a051e624e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f258319b5c4198c80ea9a62331284ed" id="r_a1f258319b5c4198c80ea9a62331284ed"><td class="memItemLeft" align="right" valign="top"><a id="a1f258319b5c4198c80ea9a62331284ed" name="a1f258319b5c4198c80ea9a62331284ed"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Ticket</b> (<a class="el" href="class_student.html">Student</a> &amp;student, const char &amp;type, const <a class="el" href="class_uc_class.html">UcClass</a> &amp;from, const <a class="el" href="class_uc_class.html">UcClass</a> &amp;to)</td></tr>
+<tr class="memitem:a1f258319b5c4198c80ea9a62331284ed" id="r_a1f258319b5c4198c80ea9a62331284ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ticket.html#a1f258319b5c4198c80ea9a62331284ed">Ticket</a> (<a class="el" href="class_student.html">Student</a> &amp;student, const char &amp;type, const <a class="el" href="class_uc_class.html">UcClass</a> &amp;from, const <a class="el" href="class_uc_class.html">UcClass</a> &amp;to)</td></tr>
 <tr class="separator:a1f258319b5c4198c80ea9a62331284ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4230898dcae2473a22c40338801e6b80" id="r_a4230898dcae2473a22c40338801e6b80"><td class="memItemLeft" align="right" valign="top"><a id="a4230898dcae2473a22c40338801e6b80" name="a4230898dcae2473a22c40338801e6b80"></a>
 <a class="el" href="class_student.html">Student</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getStudent</b> ()</td></tr>
@@ -100,14 +103,111 @@ const char &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getType</
 Private Attributes</h2></td></tr>
 <tr class="memitem:aaf5083ba9c30365fba81008867066ce9" id="r_aaf5083ba9c30365fba81008867066ce9"><td class="memItemLeft" align="right" valign="top"><a id="aaf5083ba9c30365fba81008867066ce9" name="aaf5083ba9c30365fba81008867066ce9"></a>
 <a class="el" href="class_student.html">Student</a>&#160;</td><td class="memItemRight" valign="bottom"><b>student_</b></td></tr>
+<tr class="memdesc:aaf5083ba9c30365fba81008867066ce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">The student associated with the ticket. <br /></td></tr>
 <tr class="separator:aaf5083ba9c30365fba81008867066ce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71f7da1905c7662e8c11f0f9c5bdef93" id="r_a71f7da1905c7662e8c11f0f9c5bdef93"><td class="memItemLeft" align="right" valign="top"><a id="a71f7da1905c7662e8c11f0f9c5bdef93" name="a71f7da1905c7662e8c11f0f9c5bdef93"></a>
 std::vector&lt; <a class="el" href="class_uc_class.html">UcClass</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ucClasses_</b></td></tr>
+<tr class="memdesc:a71f7da1905c7662e8c11f0f9c5bdef93"><td class="mdescLeft">&#160;</td><td class="mdescRight">The UcClasses involved in the ticket. <br /></td></tr>
 <tr class="separator:a71f7da1905c7662e8c11f0f9c5bdef93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64199c44a39d4c00bc2864bc5493aa0a" id="r_a64199c44a39d4c00bc2864bc5493aa0a"><td class="memItemLeft" align="right" valign="top"><a id="a64199c44a39d4c00bc2864bc5493aa0a" name="a64199c44a39d4c00bc2864bc5493aa0a"></a>
 char&#160;</td><td class="memItemRight" valign="bottom"><b>type_</b></td></tr>
+<tr class="memdesc:a64199c44a39d4c00bc2864bc5493aa0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of the ticket: 'a' for add, 'd' for delete, 's' for switch. <br /></td></tr>
 <tr class="separator:a64199c44a39d4c00bc2864bc5493aa0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents a ticket for schedule changes. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a006dc686db2fc952d8ea1d8a051e624e" name="a006dc686db2fc952d8ea1d8a051e624e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a006dc686db2fc952d8ea1d8a051e624e">&#9670;&#160;</a></span>Ticket() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Ticket::Ticket </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_student.html">Student</a> &amp;&#160;</td>
+          <td class="paramname"><em>student</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char &amp;&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_uc_class.html">UcClass</a> &amp;&#160;</td>
+          <td class="paramname"><em>ucClass</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Constructor for a ticket to add or delete a <a class="el" href="class_uc_class.html" title="Represents a pair of an UC and a Class.">UcClass</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">student</td><td>The student associated with the ticket. </td></tr>
+    <tr><td class="paramname">type</td><td>The type of the ticket ('a' for add, 'd' for delete). </td></tr>
+    <tr><td class="paramname">ucClass</td><td>The <a class="el" href="class_uc_class.html" title="Represents a pair of an UC and a Class.">UcClass</a> to be added or deleted. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a1f258319b5c4198c80ea9a62331284ed" name="a1f258319b5c4198c80ea9a62331284ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f258319b5c4198c80ea9a62331284ed">&#9670;&#160;</a></span>Ticket() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Ticket::Ticket </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_student.html">Student</a> &amp;&#160;</td>
+          <td class="paramname"><em>student</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char &amp;&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_uc_class.html">UcClass</a> &amp;&#160;</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_uc_class.html">UcClass</a> &amp;&#160;</td>
+          <td class="paramname"><em>to</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Constructor for a ticket to switch from one <a class="el" href="class_uc_class.html" title="Represents a pair of an UC and a Class.">UcClass</a> to another. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">student</td><td>The student associated with the ticket. </td></tr>
+    <tr><td class="paramname">type</td><td>The type of the ticket ('s' for switch). </td></tr>
+    <tr><td class="paramname">from</td><td>The <a class="el" href="class_uc_class.html" title="Represents a pair of an UC and a Class.">UcClass</a> to switch from. </td></tr>
+    <tr><td class="paramname">to</td><td>The <a class="el" href="class_uc_class.html" title="Represents a pair of an UC and a Class.">UcClass</a> to switch to. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/vascocosta/Documents/inf2324/aed/AEDproject/src/<a class="el" href="_ticket_8h_source.html">Ticket.h</a></li>
 <li>/home/vascocosta/Documents/inf2324/aed/AEDproject/src/<b>Ticket.cpp</b></li>

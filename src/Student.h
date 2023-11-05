@@ -9,6 +9,10 @@
 #include <list>
 #include "UcClass.h"
 
+/**
+ * @brief Represents a student.
+ */
+
 class Student {
 private:
     std::string name_, code_;

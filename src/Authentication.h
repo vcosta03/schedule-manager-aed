@@ -9,6 +9,13 @@
 #include <list>
 #include "User.h"
 
+/**
+ * @brief Stores user data and handles user sessions.
+ *
+ * Fundamental component of the program to handle user authentication and access control, it further enables admin restricted
+ * functionalities on the main application.
+ */
+
 class Authentication {
 private:
     User currentUser;

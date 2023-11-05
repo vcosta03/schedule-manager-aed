@@ -22,8 +22,12 @@ Schedule::Schedule(const Student &student) {
     }
 }
 
+/**
+ * @brief Displays the Schedule.
+ * @param type should be 0 to print an UcClass's Schedule and 1 to print a Student's Schedule.
+ */
 
-void Schedule::printSchedule(const int type){
+void Schedule::printSchedule(int type){
 // PRINTA UCCLASS
 
     if (type == 0) {
@@ -108,7 +112,11 @@ std::string Schedule::dayWeek(int day) const{
 }
 
 
+/**
+ * @brief Pushes a lesson to the correct list, sorted by start time.
+ */
 void Schedule::pushLesson(const Lesson &lesson, char index) {
+
     int weekday = lesson.getWeekday();
     auto it = lessons_[weekday].begin();
 
