@@ -93,7 +93,7 @@ void Authentication::registerUser() {
 
 bool Authentication::userExists(std::string username, std::string password) {
     for (auto user : users) {
-        if (username == user.get_username() && password == user.get_password()) {
+        if (username == user.getUsername() && password == user.getPassword()) {
             currentUser = user;
             return true;
         }
@@ -146,7 +146,7 @@ void Authentication::writeUserDataCSV(User user) {
         return;
     }
 
-    file << user.get_username() << "," << user.get_password() << "," << (user.isAdmin() ? "1" : "0") << "\n";
+    file << user.getUsername() << "," << user.getPassword() << "," << (user.isAdmin() ? "1" : "0") << "\n";
 
     file.close();
 }

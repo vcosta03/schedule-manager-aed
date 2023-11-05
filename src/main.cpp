@@ -8,12 +8,24 @@
 
 
 int main(int argc, char* argv[]) {
+    bool bypassLogin = false;
+
+    for (int i = 0; i < argc; i++) {
+        if (std::string(argv[i]) == "-a") {
+            bypassLogin = true;
+            break;
+        }
+    }
 
     Authentication auth;
-    auth.readUserDataCSV("../csvdata/userdata.csv");
-    auth.authMenu();
 
-    if (auth.isLogged()) {
+    if (!bypassLogin) {
+        auth.readUserDataCSV("../csvdata/userdata.csv");
+        auth.authMenu();
+    }
+
+
+    if (auth.isLogged() || bypassLogin) {
         Application app;
         app.readFiles("../csvdata/classes_per_uc.csv", "../csvdata/classes.csv", "../csvdata/students_classes.csv");
 
@@ -28,7 +40,7 @@ int main(int argc, char* argv[]) {
             std::cout << "\t4. Make a new request" << '\n';
 
 
-            if (auth.getCurrentUser().isAdmin()) {
+            if (auth.getCurrentUser().isAdmin() || bypassLogin) {
             std::cout << "\t5. Ticket Management" << '\n';
             std::cout << "\t6. System Log\n";
             }
@@ -62,7 +74,7 @@ int main(int argc, char* argv[]) {
                     app.tickets();
                     break;
                 case '5': {
-                    if (auth.getCurrentUser().isAdmin()) {
+                    if (auth.getCurrentUser().isAdmin() || bypassLogin) {
                         app.ticketHandling();
                     }
                     else
@@ -70,11 +82,11 @@ int main(int argc, char* argv[]) {
                     break;
                 }
                 case '6': {
-                    if (auth.getCurrentUser().isAdmin()) {
+                    if (auth.getCurrentUser().isAdmin() || bypassLogin) {
                         app.sysLog();
                     }
                     else
-                        std::cout << "Login to an Admin account to have access to this menu.\n";
+                        std::cout << "Login to an Admin account to have access\nto this menu.\n";
                     break;
                 }
                 case 'q':

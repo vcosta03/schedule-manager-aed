@@ -4,17 +4,17 @@
 
 #include "User.h"
 
-User::User(std::string username, std::string password, bool admin) : username_(username), password_(password), isAdmin_(admin) {}
+User::User(const std::string &username, const std::string &password, bool admin) : username_(username), password_(password), isAdmin_(admin) {}
 
-std::string User::get_username() {
+const std::string User::getUsername() const{
     return username_;
 }
 
-std::string User::get_password() {
+const std::string User::getPassword() const{
     return password_;
 }
 
-bool User::isAdmin() {
+bool User::isAdmin() const{
     return isAdmin_;
 }
 

@@ -1276,17 +1276,17 @@ bool Application::processTicket(Ticket &ticket) {
                 auto itUc = std::find(currUcClasses.begin(), currUcClasses.end(), ucClassTo);
 
                 if (itUc != currUcClasses.end()) {
-                    std::cout << "rejected, the student is already enrolled in the UC/class.\n";
+                    std::cout << "rejected, the student is already enrolled\n\tin the UC/class.\n";
                     return false;
                 }
 
                 if (currUcClasses.size() > 7)  {
-                    std::cout << "rejected, the student is already enrolled in 7 UCs.\n";
+                    std::cout << "rejected, the student is already enrolled\n\tin 7 UCs.\n";
                     return false;
                 }
 
                 if (classBalanceDisturbed(occupancy_[ucClassTo] + 1 , ucClassTo)) {
-                    std::cout << "rejected, joining this class would disrupt class balance within the UC.\n";
+                    std::cout << "rejected, joining this class would disrupt\n\tclass balance within the UC.\n";
                     return false;
                 }
 
@@ -1327,12 +1327,12 @@ bool Application::processTicket(Ticket &ticket) {
                 auto itUcAdd = std::find(currUcClasses.begin(), currUcClasses.end(), ucClassTo);
 
                 if (itUcErase == currUcClasses.end()) {
-                    std::cout << "rejected, the student is not enrolled in the UC/Class.\n";
+                    std::cout << "rejected, the student is not enrolled in\n\tthe UC/Class.\n";
                     return false;
                 }
 
                 if (itUcAdd != currUcClasses.end()) {
-                    std::cout << "rejected, the student is already enrolled in the UC/Class.\n";
+                    std::cout << "rejected, the student is already enrolled\n\tin the UC/Class.\n";
                     return false;
                 }
 
@@ -1340,7 +1340,7 @@ bool Application::processTicket(Ticket &ticket) {
                 occupancy_[ucClassFrom]--;
 
                 if (classBalanceDisturbed(occupancy_[ucClassTo]+1, ucClassTo)) {
-                    std::cout << "rejected, switching to this class would disrupt class balance within the UC.\n";
+                    std::cout << "rejected, switching to this class would\n\tdisrupt class balance within the UC.\n";
                     occupancy_[ucClassFrom]++;
                     return false;
                 }
@@ -1385,7 +1385,7 @@ bool Application::processTicket(Ticket &ticket) {
 bool Application::classBalanceDisturbed(int numStudents, const UcClass &ucClassTo) const {
     for (const auto& p : occupancy_) {
         if (p.first.getUcId() == ucClassTo.getUcId() && p.first.getClassId() != ucClassTo.getClassId()) {
-            if (abs(p.second-numStudents) > 4 && occupancy_.find(ucClassTo)->second < p.second ) {
+            if (abs(p.second-numStudents) > 4 && numStudents > p.second ) {
                 return true;
             }
         }

@@ -15,10 +15,10 @@ private:
     bool isAdmin_;
 
 public:
-    User(std::string username, std::string password, bool admin);
-    std::string get_username();
-    std::string get_password();
-    bool isAdmin();
+    User(const std::string &username, const std::string& password, bool admin);
+    const std::string getUsername() const;
+    const std::string getPassword() const;
+    bool isAdmin() const;
 
 };
 
